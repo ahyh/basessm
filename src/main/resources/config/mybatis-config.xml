@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties>
+        <property name="dialect" value="MYSQL"/>
+    </properties>
+    <settings>
+        <!--<setting name="cacheEnabled" value="true" />-->
+        <setting name="lazyLoadingEnabled" value="false" />
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <setting name="useColumnLabel" value="true" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="autoMappingBehavior" value="PARTIAL" />
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <setting name="defaultStatementTimeout" value="25000" />
+        <setting name="cacheEnabled" value="false" />
+        <setting name="defaultExecutorType" value="REUSE" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Salary" type="com.yanhuan.yhssm.domain.Salary"/>
+        <typeAlias alias="SalaryCondition" type="com.yanhuan.yhssm.domain.SalaryCondition"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+            <property name="dialect" value="mysql"/>
+            <property name="offsetAsPageNum" value="false"/>
+            <property name="rowBoundsWithCount" value="false"/>
+            <property name="pageSizeZero" value="true"/>
+            <property name="reasonable" value="false"/>
+            <property name="supportMethodsArguments" value="false"/>
+            <property name="returnPageInfo" value="none"/>
+        </plugin>
+    </plugins>
+
+    <mappers>
+        <mapper resource="mapper/SalaryMapper.xml" />
+    </mappers>
+
+</configuration>
