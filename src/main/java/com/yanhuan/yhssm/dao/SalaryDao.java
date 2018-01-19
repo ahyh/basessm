@@ -2,6 +2,7 @@ package com.yanhuan.yhssm.dao;
 
 import com.yanhuan.yhssm.domain.Salary;
 import com.yanhuan.yhssm.domain.SalaryCondition;
+import com.yanhuan.yhssm.domain.SalaryPageCondition;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface SalaryDao {
 
     Integer delete(Long id);
 
+    Salary getSalaryByCondition(SalaryCondition condition);
+
     List<Salary> findSalaryList(SalaryCondition condition);
 
-    List<Salary> findSalaryPage(SalaryCondition condition);
+    List<Salary> findSalaryPage(SalaryPageCondition condition);
 }

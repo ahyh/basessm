@@ -7,6 +7,7 @@ import com.google.common.base.Preconditions;
 import com.yanhuan.yhssm.dao.SalaryDao;
 import com.yanhuan.yhssm.domain.Salary;
 import com.yanhuan.yhssm.domain.SalaryCondition;
+import com.yanhuan.yhssm.domain.SalaryPageCondition;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * SalaryService服务：基本的增删改查方法
  * Created by yanhuan1 on 2018/1/16.
  */
 @Service
@@ -40,18 +42,23 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    public Salary getSalaryByCondition(SalaryCondition condition) {
+        Preconditions.checkArgument(condition != null, "condition cannot null!");
+        return salaryDao.getSalaryByCondition(condition);
+    }
+
+    @Override
     public List<Salary> findSalaryList(SalaryCondition condition) {
         return salaryDao.findSalaryList(condition);
     }
 
     @Override
-    public PageInfo<Salary> selectSalaryPage(Page page, SalaryCondition salaryCondition) {
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<Salary> salaries = salaryDao.findSalaryPage(salaryCondition);
+    public PageInfo<Salary> selectSalaryPage(SalaryPageCondition condition) {
+        PageHelper.startPage(condition.getPageNum(), condition.getPageSize(), condition.getOrderBy());
+        List<Salary> salaries = salaryDao.findSalaryPage(condition);
         PageInfo<Salary> pageInfo = new PageInfo<>(salaries);
         return pageInfo;
     }
-
 
 
 }

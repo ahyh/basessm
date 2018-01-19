@@ -23,6 +23,7 @@
     <typeAliases>
         <typeAlias alias="Salary" type="com.yanhuan.yhssm.domain.Salary"/>
         <typeAlias alias="SalaryCondition" type="com.yanhuan.yhssm.domain.SalaryCondition"/>
+        <typeAlias alias="SalaryPageCondition" type="com.yanhuan.yhssm.domain.SalaryPageCondition"/>
     </typeAliases>
 
     <plugins>

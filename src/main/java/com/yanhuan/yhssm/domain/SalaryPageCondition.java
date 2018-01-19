@@ -1,12 +1,13 @@
 package com.yanhuan.yhssm.domain;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by yanhuan1 on 2018/1/16.
+ * 分页查询条件
+ * Created by yanhuan1 on 2018/1/20.
  */
-public class BaseDomain implements Serializable {
+public class SalaryPageCondition extends BasePageCondition {
 
     private Long id;
 
@@ -22,6 +23,14 @@ public class BaseDomain implements Serializable {
      * 是否删除：1-已删除，0-未删除
      */
     private Byte isDelete;
+
+    private BigDecimal salary;
+
+    private String name;
+
+    private String age;
+
+    private Byte sex;
 
     public Long getId() {
         return id;
@@ -69,5 +78,37 @@ public class BaseDomain implements Serializable {
 
     public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public Byte getSex() {
+        return sex;
+    }
+
+    public void setSex(Byte sex) {
+        this.sex = sex;
     }
 }

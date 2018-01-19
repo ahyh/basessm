@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.yanhuan.yhssm.domain.Salary;
 import com.yanhuan.yhssm.domain.SalaryCondition;
+import com.yanhuan.yhssm.domain.SalaryPageCondition;
 
 import java.util.List;
 
@@ -18,7 +19,10 @@ public interface SalaryService {
 
     Integer delete(Long id);
 
+    Salary getSalaryByCondition(SalaryCondition condition);
+
     List<Salary> findSalaryList(SalaryCondition condition);
 
-    PageInfo<Salary> selectSalaryPage(Page page, SalaryCondition salaryCondition);
+    PageInfo<Salary> selectSalaryPage(SalaryPageCondition condition);
+
 }

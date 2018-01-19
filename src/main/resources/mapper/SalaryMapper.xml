@@ -25,7 +25,8 @@
         id,name,age,sex,company,salary,create_time,update_time,create_user,update_user,is_delete
     </sql>
 
-    <select id="insert" resultType="java.lang.Integer" parameterType="Salary">
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="Salary" useGeneratedKeys="true" keyProperty="id">
         insert into salary
         <include refid="allColumnsWithOutId"/>
         values (
@@ -40,7 +41,7 @@
         #{createUser,jdbcType=VARCHAR},
         0
         )
-    </select>
+    </insert>
 
     <update id="update" parameterType="Salary">
         update salary
@@ -84,13 +85,13 @@
                     and is_delete = #{isDelete,jdbcType=TINYINT}
                 </when>
                 <otherwise>
-                    is_delete = 0
+                    and is_delete = 0
                 </otherwise>
             </choose>
         </where>
     </select>
 
-    <select id="findSalaryPage" resultMap="BaseResultMap" parameterType="SalaryCondition">
+    <select id="getSalaryByCondition" resultMap="BaseResultMap" parameterType="SalaryCondition">
         SELECT
         <include refid="allColumns"/>
         from salary
@@ -112,7 +113,36 @@
                     and is_delete = #{isDelete,jdbcType=TINYINT}
                 </when>
                 <otherwise>
-                    is_delete = 0
+                    and is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+        limit 1
+    </select>
+
+    <select id="findSalaryPage" resultMap="BaseResultMap" parameterType="SalaryPageCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from salary
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex,jdbcType=TINYINT}
+            </if>
+            <if test="salary != null">
+                and salary = #{salary,jdbcType=DECIMAL}
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and is_delete = 0
                 </otherwise>
             </choose>
         </where>
