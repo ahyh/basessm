@@ -14,6 +14,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.version>4.3.5.RELEASE</spring.version>
         <mybatis.version>3.4.1</mybatis.version>
+        <mybatis-spring.version>1.3.1</mybatis-spring.version>
+        <druid.version>1.0.20</druid.version>
+        <log4j.version>2.3</log4j.version>
+        <github.pagehelper.version>4.1.6</github.pagehelper.version>
+        <disruptor.version>3.2.0</disruptor.version>
+        <guava.version>19.0</guava.version>
     </properties>
 
 
@@ -23,20 +29,6 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
-        </dependency>
-
-        <!-- 单元测试 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-
-        <!-- 实现slf4j接口并整合 -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.2</version>
         </dependency>
 
         <!-- JSON -->
@@ -58,7 +50,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.0.20</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <!-- MyBatis -->
@@ -72,7 +64,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.3.1</version>
+            <version>${mybatis-spring.version}</version>
         </dependency>
 
         <!-- Spring -->
@@ -126,7 +118,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0</version>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
@@ -147,12 +139,6 @@
             <version>3.2.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-
         <!-- junit test -->
         <dependency>
             <groupId>junit</groupId>
@@ -164,7 +150,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.1.6</version>
+            <version>${github.pagehelper.version}</version>
         </dependency>
 
         <!-- spring test -->
@@ -181,6 +167,28 @@
             <version>2.3.23</version>
         </dependency>
 
+        <!-- log日志 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>${disruptor.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -219,6 +227,9 @@
                 <mvn.jdbc.mysql.url>jdbc:mysql://localhost:3306/yanhuan?unicode=utf8</mvn.jdbc.mysql.url>
                 <mvn.jdbc.mysql.username>root</mvn.jdbc.mysql.username>
                 <mvn.jdbc.mysql.password>123456</mvn.jdbc.mysql.password>
+                <mvn.log.business.level>DEBUG</mvn.log.business.level>
+                <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
+                <mvn.app.name>basessm</mvn.app.name>
             </properties>
         </profile>
 
@@ -233,6 +244,9 @@
                 <mvn.jdbc.mysql.url>jdbc:mysql://localhost:3306/yanhuan?unicode=utf8</mvn.jdbc.mysql.url>
                 <mvn.jdbc.mysql.username>root</mvn.jdbc.mysql.username>
                 <mvn.jdbc.mysql.password>123456</mvn.jdbc.mysql.password>
+                <mvn.log.business.level>DEBUG</mvn.log.business.level>
+                <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
+                <mvn.app.name>basessm</mvn.app.name>
             </properties>
         </profile>
 
@@ -247,6 +261,9 @@
                 <mvn.jdbc.mysql.url>jdbc:mysql://localhost:3306/yanhuan?unicode=utf8</mvn.jdbc.mysql.url>
                 <mvn.jdbc.mysql.username>root</mvn.jdbc.mysql.username>
                 <mvn.jdbc.mysql.password>123456</mvn.jdbc.mysql.password>
+                <mvn.log.business.level>DEBUG</mvn.log.business.level>
+                <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
+                <mvn.app.name>basessm</mvn.app.name>
             </properties>
         </profile>
     </profiles>

@@ -1,9 +1,9 @@
 package com.yanhuan.yhssm.test;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -13,7 +13,8 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-main.xml"})
 public class BaseTest {
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private static Logger logger = LogManager.getLogger(BaseTest.class);
 
     protected void print(Object result) {
         if (result == null) {

@@ -10,7 +10,7 @@
 
     <!-- 开启SpringMVC注解模式 -->
     <mvc:annotation-driven/>
-    <mvc:resources location="/statics/" mapping="/statics/**" cache-period="864000"/>
+    <!--<mvc:resources location="/statics/" mapping="/statics/**" cache-period="864000"/>-->
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>

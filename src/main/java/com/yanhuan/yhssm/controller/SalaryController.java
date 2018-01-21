@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 
 /**
+ * Salary控制器
  * Created by yanhuan1 on 2018/1/16.
  */
 @Controller

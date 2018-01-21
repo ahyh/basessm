@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.service.SalaryService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +20,8 @@ import java.util.List;
  * Created by yanhuan1 on 2018/1/16.
  */
 public class SalaryServiceTest extends BaseTest {
+
+    private static Logger logger = LogManager.getLogger(SalaryServiceTest.class);
 
     @Resource
     private SalaryService salaryService;
@@ -54,9 +58,10 @@ public class SalaryServiceTest extends BaseTest {
 
     @Test
     public void testFindList() {
+        logger.error("SalaryServiceTest findlist");
         SalaryCondition salaryCondition = new SalaryCondition();
         List<Salary> salaryList = salaryService.findSalaryList(salaryCondition);
-        System.out.println();
+        Assert.assertTrue(salaryList.size() > 0);
     }
 
     @Test
