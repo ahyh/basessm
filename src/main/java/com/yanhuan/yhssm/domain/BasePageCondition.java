@@ -1,11 +1,9 @@
 package com.yanhuan.yhssm.domain;
 
-import java.io.Serializable;
-
 /**
  * Created by yanhuan1 on 2018/1/20.
  */
-public class BasePageCondition implements Serializable{
+public class BasePageCondition extends BaseBussinessDomain {
 
     private int pageNum;
 

@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanhuan.yhssm.dao.OrderMainDao">
+    <resultMap id="BaseResultMap" type="OrderMain">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+        <result column="order_type" property="orderType" jdbcType="TINYINT"/>
+        <result column="order_status" property="orderStatus" jdbcType="TINYINT"/>
+        <result column="pay_status" property="payStatus" jdbcType="TINYINT"/>
+        <result column="sku_count" property="skuCount" jdbcType="INTEGER"/>
+        <result column="goods_count" property="goodsCount" jdbcType="INTEGER"/>
+        <result column="buyer" property="buyer" jdbcType="VARCHAR"/>
+        <result column="is_vip" property="isVip" jdbcType="TINYINT"/>
+        <result column="sale_man_no" property="saleManNo" jdbcType="VARCHAR"/>
+        <result column="sale_man_name" property="saleManName" jdbcType="VARCHAR"/>
+        <result column="pay_way_type" property="payWayType" jdbcType="TINYINT"/>
+        <result column="order_amount" property="orderAmount" jdbcType="DECIMAL"/>
+        <result column="actual_amount" property="actualAmount" jdbcType="DECIMAL"/>
+        <result column="province_no" property="provinceNo" jdbcType="INTEGER"/>
+        <result column="province_name" property="provinceName" jdbcType="VARCHAR"/>
+        <result column="city_no" property="cityNo" jdbcType="INTEGER"/>
+        <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
+        <result column="store_no" property="storeNo" jdbcType="INTEGER"/>
+        <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <resultMap id="MainWithDetailsMap" type="OrderMain">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+        <result column="order_type" property="orderType" jdbcType="TINYINT"/>
+        <result column="order_status" property="orderStatus" jdbcType="TINYINT"/>
+        <result column="pay_status" property="payStatus" jdbcType="TINYINT"/>
+        <result column="sku_count" property="skuCount" jdbcType="INTEGER"/>
+        <result column="goods_count" property="goodsCount" jdbcType="INTEGER"/>
+        <result column="buyer" property="buyer" jdbcType="VARCHAR"/>
+        <result column="is_vip" property="isVip" jdbcType="TINYINT"/>
+        <result column="sale_man_no" property="saleManNo" jdbcType="VARCHAR"/>
+        <result column="sale_man_name" property="saleManName" jdbcType="VARCHAR"/>
+        <result column="pay_way_type" property="payWayType" jdbcType="TINYINT"/>
+        <result column="order_amount" property="orderAmount" jdbcType="DECIMAL"/>
+        <result column="actual_amount" property="actualAmount" jdbcType="DECIMAL"/>
+        <result column="province_no" property="provinceNo" jdbcType="INTEGER"/>
+        <result column="province_name" property="provinceName" jdbcType="VARCHAR"/>
+        <result column="city_no" property="cityNo" jdbcType="INTEGER"/>
+        <result column="city_name" property="cityName" jdbcType="VARCHAR"/>
+        <result column="store_no" property="storeNo" jdbcType="INTEGER"/>
+        <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <collection property="orderDetailList" column="detail_id" ofType="OrderDetail">
+            <result column="detail_id" property="id" jdbcType="BIGINT"/>
+            <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+            <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+            <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+            <result column="goods_type" property="goodsType" jdbcType="TINYINT"/>
+            <result column="brand" property="brand" jdbcType="VARCHAR"/>
+            <result column="color" property="color" jdbcType="VARCHAR"/>
+            <result column="barcode" property="barcode" jdbcType="VARCHAR"/>
+            <result column="price" property="price" jdbcType="DECIMAL"/>
+            <result column="discount" property="discount" jdbcType="DECIMAL"/>
+            <result column="qty" property="qty" jdbcType="INTEGER"/>
+            <result column="first_cate_no" property="firstCateNo" jdbcType="INTEGER"/>
+            <result column="first_cate_name" property="firstCateName" jdbcType="VARCHAR"/>
+            <result column="second_cate_no" property="secondCateNo" jdbcType="INTEGER"/>
+            <result column="second_cate_name" property="secondCateName" jdbcType="VARCHAR"/>
+            <result column="third_cate_no" property="thirdCateNo" jdbcType="INTEGER"/>
+            <result column="third_cate_name" property="thirdCateName" jdbcType="VARCHAR"/>
+            <result column="detail_province_no" property="provinceNo" jdbcType="INTEGER"/>
+            <result column="detail_province_name" property="provinceName" jdbcType="VARCHAR"/>
+            <result column="detail_city_no" property="cityNo" jdbcType="INTEGER"/>
+            <result column="detail_city_name" property="cityName" jdbcType="VARCHAR"/>
+            <result column="detail_store_no" property="storeNo" jdbcType="INTEGER"/>
+            <result column="detail_store_name" property="storeName" jdbcType="VARCHAR"/>
+            <result column="detail_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+            <result column="detail_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+            <result column="detail_create_user" property="createUser" jdbcType="VARCHAR"/>
+            <result column="detail_update_user" property="updateUser" jdbcType="VARCHAR"/>
+            <result column="detail_is_delete" property="isDelete" jdbcType="TINYINT"/>
+        </collection>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (order_no,order_type,order_status,pay_status,sku_count,
+         goods_count,buyer,is_vip,sale_man_no,sale_man_name,
+         pay_way_type,order_amount,actual_amount,province_no,province_name,
+         city_no,city_name,store_no,store_name,create_time,
+         update_time,create_user,update_user,is_delete)
+    </sql>
+
+    <sql id="allColumns">
+         id,order_no,order_type,order_status,pay_status,
+         sku_count,goods_count,buyer,is_vip,sale_man_no,
+         sale_man_name,pay_way_type,order_amount,actual_amount,province_no,
+         province_name,city_no,city_name,store_no,store_name,
+         create_time,update_time,create_user,update_user,is_delete
+    </sql>
+
+    <sql id="allQueryCondition">
+        <if test="id != null and id != 0">
+            and id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="orderNo != null and orderNo != ''">
+            and order_no = #{orderNo,jdbcType=VARCHAR}
+        </if>
+        <if test="orderType != null">
+            and order_type = #{orderType,jdbcType=TINYINT}
+        </if>
+        <if test="orderStatus != null">
+            and order_status = #{orderStatus,jdbcType=TINYINT}
+        </if>
+        <if test="payStatus != null">
+            and pay_status = #{id,payStatus=TINYINT}
+        </if>
+        <if test="skuCount != null and skuCount != 0">
+            and sku_count = #{skuCount,jdbcType=INTEGER}
+        </if>
+        <if test="goodsCount != null and goodsCount != 0">
+            and goods_count = #{goodsCount,jdbcType=INTEGER}
+        </if>
+        <if test="orderStatus != null">
+            and order_status = #{orderStatus,jdbcType=TINYINT}
+        </if>
+        <if test="buyer != null and buyer != ''">
+            and buyer = #{buyer,jdbcType=VARCHAR}
+        </if>
+        <if test="isVip != null">
+            and is_vip = #{isVip,jdbcType=TINYINT}
+        </if>
+        <if test="saleManNo != null and saleManNo != ''">
+            and sale_man_no = #{saleManNo,jdbcType=VARCHAR}
+        </if>
+        <if test="saleManName != null and saleManName != ''">
+            and sale_man_name = #{saleManName,jdbcType=VARCHAR}
+        </if>
+        <if test="payWayType != null">
+            and pay_way_type = #{payWayType,jdbcType=TINYINT}
+        </if>
+        <if test="orderAmount != null">
+            and order_amount = #{orderAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="actualAmount != null">
+            and actual_mount = #{actualAmount,jdbcType=VARCHAR}
+        </if>
+        <if test="provinceNo != null and provinceNo != 0">
+            and province_no = #{provinceNo,jdbcType=INTEGER}
+        </if>
+        <if test="provinceName != null and provinceName != ''">
+            and province_name = #{provinceName,jdbcType=VARCHAR}
+        </if>
+        <if test="cityNo != null and cityNo != 0">
+            and city_no = #{cityNo,jdbcType=INTEGER}
+        </if>
+        <if test="cityName != null and cityName != ''">
+            and city_name = #{cityName,jdbcType=VARCHAR}
+        </if>
+        <if test="storeNo != null and storeNo != 0">
+            and store_no = #{storeNo,jdbcType=INTEGER}
+        </if>
+        <if test="storeName != null and storeName != ''">
+            and store_name = #{storeName,jdbcType=VARCHAR}
+        </if>
+        <choose>
+            <when test="isDelete != null">
+                and is_delete = #{isDelete,jdbcType=TINYINT}
+            </when>
+            <otherwise>
+                and is_delete = 0
+            </otherwise>
+        </choose>
+    </sql>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="OrderMain" useGeneratedKeys="true" keyProperty="id">
+        insert into order_main
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{orderNo,jdbcType=VARCHAR},
+        #{orderType,jdbcType=TINYINT},
+        #{orderStatus,jdbcType=TINYINT},
+        #{payStatus,jdbcType=TINYINT},
+        #{skuCount,jdbcType=INTEGER},
+        #{goodsCount,jdbcType=INTEGER},
+        #{buyer,jdbcType=VARCHAR},
+        #{isVip,jdbcType=TINYINT},
+        #{saleManNo,jdbcType=VARCHAR},
+        #{saleManName,jdbcType=VARCHAR},
+        #{payWayType,jdbcType=TINYINT},
+        #{orderAmount,jdbcType=DECIMAL},
+        #{actualAmount,jdbcType=DECIMAL},
+        #{provinceNo,jdbcType=INTEGER},
+        #{provinceName,jdbcType=VARCHAR},
+        #{cityNo,jdbcType=INTEGER},
+        #{cityName,jdbcType=VARCHAR},
+        #{storeNo,jdbcType=INTEGER},
+        #{storeName,jdbcType=VARCHAR},
+        now(),
+        now(),
+        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR},
+        0
+        )
+    </insert>
+
+    <update id="update" parameterType="Salary">
+        update order_main
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="orderType != null">
+                    order_type = #{orderType,jdbcType=TINYINT},
+                </if>
+                <if test="orderStatus != null">
+                    order_status = #{orderStatus,jdbcType=TINYINT},
+                </if>
+                <if test="payStatus != null">
+                    pay_status = #{payStatus,jdbcType=TINYINT},
+                </if>
+                <if test="skuCount != null and skuCount != 0">
+                    sku_count = #{skuCount,jdbcType=INTEGER},
+                </if>
+                <if test="goodsCount != null and goodsCount != 0">
+                    goods_count = #{goodsCount,jdbcType=INTEGER},
+                </if>
+                <if test="buyer != null and buyer != ''">
+                    buyer = #{buyer,jdbcType=VARCHAR},
+                </if>
+                <if test="isVip != null">
+                    is_vip = #{isVip,jdbcType=TINYINT},
+                </if>
+                <if test="saleManNo != null and saleManNo != ''">
+                    sale_man_no = #{saleManNo,jdbcType=VARCHAR},
+                </if>
+                <if test="saleManName != null and saleManName != ''">
+                    sale_man_name = #{saleManName,jdbcType=VARCHAR},
+                </if>
+                <if test="payWayType != null">
+                    pay_way_type = #{payWayType,jdbcType=TINYINT},
+                </if>
+                <if test="orderAmount != null">
+                    order_amount = #{orderAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="actualAmount != null">
+                    actual_mount = #{actualAmount,jdbcType=VARCHAR},
+                </if>
+                <if test="provinceNo != null and provinceNo != 0">
+                    province_no = #{provinceNo,jdbcType=INTEGER},
+                </if>
+                <if test="provinceName != null and provinceName != ''">
+                    province_name = #{provinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="cityNo != null and cityNo != 0">
+                    city_no = #{cityNo,jdbcType=INTEGER},
+                </if>
+                <if test="cityName != null and cityName != ''">
+                    city_name = #{cityName,jdbcType=VARCHAR},
+                </if>
+                <if test="storeNo != null and storeNo != 0">
+                    store_no = #{storeNo,jdbcType=INTEGER},
+                </if>
+                <if test="storeName != null and storeName != ''">
+                    store_name = #{storeName,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        update order_main set is_delete = 1,update_time = now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="findOrderMainList" resultMap="BaseResultMap" parameterType="OrderMainCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from order_main
+        <where>
+            <include refid="allQueryCondition"/>
+        </where>
+    </select>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="allColumns"/>
+        from order_main where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="getOrderMainByCondition" resultMap="MainWithDetailsMap" parameterType="OrderMainCondition">
+        SELECT
+        om.id,
+        om.order_no,
+        om.order_type,
+        om.order_status,
+        om.pay_status,
+        om.sku_count,
+        om.goods_count,
+        om.buyer,
+        om.is_vip,
+        om.sale_man_no,
+        om.sale_man_name,
+        om.pay_way_type,
+        om.order_amount,
+        om.actual_amount,
+        om.province_no,
+        om.province_name,
+        om.city_no,
+        om.city_name,
+        om.store_no,
+        om.store_name,
+        om.create_time,
+        om.update_time,
+        om.create_user,
+        om.update_user,
+        om.is_delete,
+        od.id as detail_id,
+        od.order_no as detail_order_no,
+        od.goods_no,
+        od.goods_name,
+        od.goods_type,
+        od.brand,
+        od.color,
+        od.barcode,
+        od.price,
+        od.discount,
+        od.qty,
+        od.first_cate_no,
+        od.first_cate_name,
+        od.second_cate_no,
+        od.second_cate_name,
+        od.third_cate_no,
+        od.third_cate_name,
+        od.province_no as detail_province_no,
+        od.province_name as detail_province_name,
+        od.city_no as detail_city_no,
+        od.city_name as detail_city_name,
+        od.store_no as detail_store_no,
+        od.store_name as detail_store_name,
+        od.create_time as detail_create_time,
+        od.update_time as detail_update_time,
+        od.create_user as detail_create_user,
+        od.update_user as detail_update_user,
+        od.is_delete as detail_is_delete
+        from order_main om left join order_detail od on om.order_no = od.order_no
+        <where>
+            <if test="id != null and id != 0">
+                and om.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and om.order_no = #{orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="provinceNo != null and provinceNo != 0">
+                and om.province_no = #{provinceNo,jdbcType=INTEGER}
+            </if>
+            <if test="cityNo != null and cityNo != 0">
+                and om.city_no = #{cityNo,jdbcType=INTEGER}
+            </if>
+            <if test="storeNo != null and storeNo != 0">
+                and om.store_no = #{storeNo,jdbcType=INTEGER}
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and om.is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and om.is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="findOrderMainPage" resultMap="BaseResultMap" parameterType="OrderMainCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from order_main
+        <where>
+            <include refid="allQueryCondition"/>
+        </where>
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into order_main
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")">
+                #{orderNo,jdbcType=VARCHAR},
+                #{orderType,jdbcType=TINYINT},
+                #{orderStatus,jdbcType=TINYINT},
+                #{payStatus,jdbcType=TINYINT},
+                #{skuCount,jdbcType=INTEGER},
+                #{goodsCount,jdbcType=INTEGER},
+                #{buyer,jdbcType=VARCHAR},
+                #{isVip,jdbcType=TINYINT},
+                #{saleManNo,jdbcType=VARCHAR},
+                #{saleManName,jdbcType=VARCHAR},
+                #{payWayType,jdbcType=TINYINT},
+                #{orderAmount,jdbcType=DECIMAL},
+                #{actualAmount,jdbcType=DECIMAL},
+                #{provinceNo,jdbcType=INTEGER},
+                #{provinceName,jdbcType=VARCHAR},
+                #{cityNo,jdbcType=INTEGER},
+                #{cityName,jdbcType=VARCHAR},
+                #{storeNo,jdbcType=INTEGER},
+                #{storeName,jdbcType=VARCHAR},
+                now(),
+                now(),
+                #{createUser,jdbcType=VARCHAR},
+                #{createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 批量删除 -->
+    <delete id="batchDelete" parameterType="java.util.List">
+        update order_main set is_delete = 1,update_time = now()
+        <where>
+            id IN
+            <if test="list != null and list.size > 0">
+                <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                    #{item,jdbcType=BIGINT}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+
+    <!-- 插入实体,存在就更新 -->
+    <insert id="batchInsertOrUpdate" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into order_main
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.orderNo,jdbcType=VARCHAR},
+                #{item.orderType,jdbcType=TINYINT},
+                #{item.orderStatus,jdbcType=TINYINT},
+                #{item.payStatus,jdbcType=TINYINT},
+                #{item.skuCount,jdbcType=INTEGER},
+                #{item.goodsCount,jdbcType=INTEGER},
+                #{item.buyer,jdbcType=VARCHAR},
+                #{item.isVip,jdbcType=TINYINT},
+                #{item.saleManNo,jdbcType=VARCHAR},
+                #{item.saleManName,jdbcType=VARCHAR},
+                #{item.payWayType,jdbcType=TINYINT},
+                #{item.orderAmount,jdbcType=DECIMAL},
+                #{item.actualAmount,jdbcType=DECIMAL},
+                #{item.provinceNo,jdbcType=INTEGER},
+                #{item.provinceName,jdbcType=VARCHAR},
+                #{item.cityNo,jdbcType=INTEGER},
+                #{item.cityName,jdbcType=VARCHAR},
+                #{item.storeNo,jdbcType=INTEGER},
+                #{item.storeName,jdbcType=VARCHAR},
+                now(),
+                now(),
+                #{item.createUser,jdbcType=VARCHAR},
+                #{item.createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        order_type = ifnull(VALUES(order_type),order_type),
+        order_status = ifnull(VALUES(order_status),order_status),
+        pay_status = ifnull(VALUES(pay_status),pay_status),
+        sku_count = ifnull(VALUES(sku_count),sku_count),
+        goods_count = ifnull(VALUES(goods_count),goods_count),
+        buyer= ifnull(VALUES(buyer),buyer),
+        is_vip= ifnull(VALUES(is_vip),is_vip),
+        sale_man_no= ifnull(VALUES(sale_man_no),sale_man_no),
+        sale_man_name= ifnull(VALUES(sale_man_name),sale_man_name),
+        pay_way_type= ifnull(VALUES(pay_way_type),pay_way_type),
+        order_amount= ifnull(VALUES(order_amount),order_amount),
+        actual_amount= ifnull(VALUES(actual_amount),actual_amount),
+        update_time= ifnull(VALUES(update_time),update_time),
+        update_user= ifnull(VALUES(update_user),update_user),
+        province_no= ifnull(VALUES(province_no),province_no),
+        province_name= ifnull(VALUES(province_name),province_name),
+        city_no= ifnull(VALUES(city_no),city_no),
+        city_name= ifnull(VALUES(city_name),city_name),
+        store_no= ifnull(VALUES(store_no),store_no),
+        store_name= ifnull(VALUES(store_name),store_name)
+    </insert>
+
+    <!-- 物理删除 -->
+    <delete id="deletePhysics" parameterType="java.lang.Long">
+        delete from order_main where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>

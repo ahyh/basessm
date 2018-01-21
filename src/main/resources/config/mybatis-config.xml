@@ -8,7 +8,7 @@
         <property name="dialect" value="MYSQL"/>
     </properties>
     <settings>
-        <!--<setting name="cacheEnabled" value="true" />-->
+        <setting name="cacheEnabled" value="true" />
         <setting name="lazyLoadingEnabled" value="false" />
         <setting name="multipleResultSetsEnabled" value="true" />
         <setting name="useColumnLabel" value="true" />
@@ -21,9 +21,12 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="Salary" type="com.yanhuan.yhssm.domain.Salary"/>
-        <typeAlias alias="SalaryCondition" type="com.yanhuan.yhssm.domain.SalaryCondition"/>
-        <typeAlias alias="SalaryPageCondition" type="com.yanhuan.yhssm.domain.SalaryPageCondition"/>
+        <typeAlias alias="Salary" type="com.yanhuan.yhssm.domain.pojo.Salary"/>
+        <typeAlias alias="OrderMain" type="com.yanhuan.yhssm.domain.pojo.OrderMain"/>
+        <typeAlias alias="OrderDetail" type="com.yanhuan.yhssm.domain.pojo.OrderDetail"/>
+        <typeAlias alias="SalaryCondition" type="com.yanhuan.yhssm.domain.condition.SalaryCondition"/>
+        <typeAlias alias="OrderMainCondition" type="com.yanhuan.yhssm.domain.condition.OrderMainCondition"/>
+        <typeAlias alias="OrderDetailCondition" type="com.yanhuan.yhssm.domain.condition.OrderDetailCondition"/>
     </typeAliases>
 
     <plugins>
@@ -41,6 +44,8 @@
 
     <mappers>
         <mapper resource="mapper/SalaryMapper.xml" />
+        <mapper resource="mapper/OrderMainMapper.xml" />
+        <mapper resource="mapper/OrderDetailMapper.xml" />
     </mappers>
 
 </configuration>

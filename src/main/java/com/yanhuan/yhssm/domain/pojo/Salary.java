@@ -1,4 +1,6 @@
-package com.yanhuan.yhssm.domain;
+package com.yanhuan.yhssm.domain.pojo;
+
+import com.yanhuan.yhssm.domain.BaseDomain;
 
 import java.math.BigDecimal;
 

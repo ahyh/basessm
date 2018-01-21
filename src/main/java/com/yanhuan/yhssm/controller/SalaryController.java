@@ -1,6 +1,6 @@
 package com.yanhuan.yhssm.controller;
 
-import com.yanhuan.yhssm.domain.Salary;
+import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

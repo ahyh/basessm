@@ -12,9 +12,7 @@
         <!-- 设置项目编码编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- spring版本号 -->
         <spring.version>4.3.5.RELEASE</spring.version>
-        <!-- mybatis版本号 -->
         <mybatis.version>3.4.1</mybatis.version>
     </properties>
 
@@ -138,6 +136,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>

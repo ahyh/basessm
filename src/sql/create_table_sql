@@ -11,5 +11,79 @@ CREATE TABLE `salary` (
   `update_user` varchar(30) DEFAULT NULL COMMENT '更新人',
   `is_delete` tinyint(1) DEFAULT NULL COMMENT '删除标识（1-删除，0-未删除）',
   `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_name_age_sex` (`name`,`age`,`sex`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 comment '薪水'
+
+CREATE TABLE `order_main` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `order_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '订单号',
+  `order_type` tinyint(2) NOT NULL COMMENT '订单类型：0-线下订单，1-线上订单，2-促销订单，3-京东转单，4-淘宝转单',
+  `order_status` tinyint(2) NOT NULL COMMENT '订单状态：0-新建单，1-暂停，2-取消，3-病单',
+  `pay_status` tinyint(2) NOT NULL COMMENT '支付状态：0-未支付，1-已支付，2-退款中，3-已退款，4-订单取消',
+  `sku_count` int(4) NOT NULL COMMENT 'sku数',
+  `goods_count` int(6) NOT NULL COMMENT '商品总件数',
+  `buyer` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '下单人',
+  `is_vip` tinyint(1) NOT NULL COMMENT '是否是会员：1-是，0-否',
+  `sale_man_no` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '销售员编号',
+  `sale_man_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '销售员名称',
+  `pay_way_type` tinyint(2) NOT NULL COMMENT '支付方式：0-支付宝，1-现金，2-微信支付，3-网银',
+  `order_amount` decimal(8,2) NOT NULL COMMENT '订单金额',
+  `actual_amount` decimal(8,2) NOT NULL COMMENT '实付金额',
+  `province_no` int(6) NOT NULL COMMENT '省公司编号',
+  `province_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '省公司名称',
+  `city_no` int(6) NOT NULL COMMENT '市公司编号',
+  `city_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '市公司名称',
+  `store_no` int(11) NOT NULL COMMENT '店编号',
+  `store_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '店名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `create_user` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '创建人',
+  `update_user` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '更新人',
+  `is_delete` tinyint(2) NOT NULL COMMENT '删除标识：1-删除，0-未删除',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_orderNo` (`order_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 comment "订单主表"
+
+
+CREATE TABLE `order_detail` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `order_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '订单号',
+  `goods_no` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品编码',
+  `goods_name` varchar(300) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品名称',
+  `goods_type` tinyint(2) NOT NULL COMMENT '商品类型：0-非图书，1-图书',
+  `brand` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '品牌',
+  `color` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '颜色',
+  `barcode` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品条码',
+  `price` decimal(8,2) NOT NULL COMMENT '商品价格',
+  `discount` decimal(6,4) NOT NULL COMMENT '商品折扣',
+  `qty` int(4) DEFAULT NULL COMMENT '数量',
+  `first_cate_no` int(8) DEFAULT NULL COMMENT '一级分类编号',
+  `first_cate_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '一级分类名称',
+  `second_cate_no` int(8) DEFAULT NULL COMMENT '二级分类编号',
+  `second_cate_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '二级分类名称',
+  `third_cate_no` int(8) DEFAULT NULL COMMENT '三级分类编号',
+  `third_cate_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '三级分类名称',
+  `province_no` int(6) NOT NULL COMMENT '省公司编号',
+  `province_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '省公司名称',
+  `city_no` int(6) NOT NULL COMMENT '市公司编号',
+  `city_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '市公司名称',
+  `store_no` int(6) NOT NULL COMMENT '店编号',
+  `store_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '店名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `create_user` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '创建人',
+  `update_user` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '更新人',
+  `is_delete` tinyint(2) NOT NULL COMMENT '删除标识：1-删除，0-未删除',
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_orderNo` (`order_no`,`goods_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='订单明细表'
+
+
+
+
+
+
+

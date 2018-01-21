@@ -1,4 +1,6 @@
-package com.yanhuan.yhssm.domain;
+package com.yanhuan.yhssm.domain.condition;
+
+import com.yanhuan.yhssm.domain.BasePageCondition;
 
 import java.math.BigDecimal;
 
@@ -6,7 +8,7 @@ import java.math.BigDecimal;
  * 查询条件对象
  * Created by yanhuan1 on 2018/1/16.
  */
-public class SalaryCondition extends BaseDomain{
+public class SalaryCondition extends BasePageCondition {
 
     private BigDecimal salary;
 

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.yanhuan.yhssm.dao.SalaryDao">
     <resultMap id="BaseResultMap" type="Salary">
         <id column="id" property="id" jdbcType="BIGINT"/>
@@ -60,7 +58,7 @@
     </update>
 
     <delete id="delete" parameterType="java.lang.Long">
-        update salary set is_delete = 0,update_time = now() where id = #{id,jdbcType=BIGINT}
+        update salary set is_delete = 1,update_time = now() where id = #{id,jdbcType=BIGINT}
     </delete>
 
     <select id="findSalaryList" resultMap="BaseResultMap" parameterType="SalaryCondition">
@@ -120,7 +118,7 @@
         limit 1
     </select>
 
-    <select id="findSalaryPage" resultMap="BaseResultMap" parameterType="SalaryPageCondition">
+    <select id="findSalaryPage" resultMap="BaseResultMap" parameterType="SalaryCondition">
         SELECT
         <include refid="allColumns"/>
         from salary
@@ -147,5 +145,71 @@
             </choose>
         </where>
     </select>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into salary
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")">
+                #{item.name,jdbcType=VARCHAR},
+                #{item.age,jdbcType=INTEGER},
+                #{item.sex,jdbcType=TINYINT},
+                #{item.company,jdbcType=VARCHAR},
+                #{item.salary,jdbcType=DECIMAL},
+                now(),
+                now(),
+                #{item.createUser,jdbcType=VARCHAR},
+                #{item.createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 批量删除 -->
+    <delete id="batchDelete" parameterType="java.util.List">
+        update salary set is_delete = 1,update_time = now()
+        <where>
+            id IN
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item,jdbcType=BIGINT}
+            </foreach>
+        </where>
+    </delete>
+
+    <!-- 插入实体,存在就更新 -->
+    <insert id="batchInsertOrUpdate" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into salary
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.name,jdbcType=VARCHAR},
+                #{item.age,jdbcType=INTEGER},
+                #{item.sex,jdbcType=TINYINT},
+                #{item.company,jdbcType=VARCHAR},
+                #{item.salary,jdbcType=DECIMAL},
+                now(),
+                now(),
+                #{item.createUser,jdbcType=VARCHAR},
+                #{item.createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        name = ifnull(VALUES(name),name),
+        age = ifnull(VALUES(age),age),
+        sex = ifnull(VALUES(sex),sex),
+        company = ifnull(VALUES(company),company),
+        salary = ifnull(VALUES(salary),salary),
+        update_time= ifnull(VALUES(update_time),update_time),
+        update_user= ifnull(VALUES(update_user),update_user)
+    </insert>
+
+    <!-- 物理删除 -->
+    <delete id="deletePhysics" parameterType="java.lang.Long">
+        delete from salary where id = #{id,jdbcType=BIGINT}
+    </delete>
 
 </mapper>
