@@ -53,16 +53,15 @@
         </AsyncLogger>
 
         <!-- 将调用mybatis的dao的包填入此处即可 -->
-        <logger name="com.yanhuan.yhssm.dao">
-            <level value="DEBUG" />
+        <AsyncLogger name="com.yanhuan.yhssm.dao" level="DEBUG" additivity="false">
             <AppenderRef ref="Console" />
-        </logger>
+        </AsyncLogger>
 
         <!-- 配置记录器级别 -->
-        <Root level="debug">
-            <!-- 输出设置 -->
-            <AppenderRef ref="Console"/>
-        </Root>
+        <!--<Root level="debug">-->
+            <!--&lt;!&ndash; 输出设置 &ndash;&gt;-->
+            <!--<AppenderRef ref="Console"/>-->
+        <!--</Root>-->
     </Loggers>
 
 </Configuration>

@@ -230,6 +230,7 @@
                 <mvn.log.business.level>DEBUG</mvn.log.business.level>
                 <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
                 <mvn.app.name>basessm</mvn.app.name>
+                <mvn.domain>basessm</mvn.domain>
             </properties>
         </profile>
 
@@ -247,6 +248,7 @@
                 <mvn.log.business.level>DEBUG</mvn.log.business.level>
                 <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
                 <mvn.app.name>basessm</mvn.app.name>
+                <mvn.domain>basessm</mvn.domain>
             </properties>
         </profile>
 
@@ -264,6 +266,7 @@
                 <mvn.log.business.level>DEBUG</mvn.log.business.level>
                 <mvn.log.lib.level>DEBUG</mvn.log.lib.level>
                 <mvn.app.name>basessm</mvn.app.name>
+                <mvn.domain>basessm</mvn.domain>
             </properties>
         </profile>
     </profiles>
