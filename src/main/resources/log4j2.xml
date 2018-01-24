@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" monitorInterval="3600">
+    <properties>
+        <property name="log_home">D:/export/Logs/${mvn.app.name}.${mvn.domain}</property>
+        <property name="business_log_size">100MB</property>
+        <property name="business_log_file_count">5</property>
+        <property name="business_log_level">${mvn.log.business.level}</property>
+        <property name="lib_log_size">50MB</property>
+        <property name="lib_log_file_count">2</property>
+        <property name="lib_log_level">${mvn.log.lib.level}</property>
+        <property name="patternLayout">%-d{yyyy-MM-dd HH:mm:ss.SSS} [%5p] [%t] %c - %m%n</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${patternLayout}"/>
+        </Console>
+
+        <RollingRandomAccessFile name="Spring" fileName="${log_home}/spring.log"
+                                 filePattern="${log_home}/spring-%i.log.gz">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${lib_log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${lib_log_file_count}"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="basessm" fileName="${log_home}/ob.log"
+                                 filePattern="${log_home}/basessm-%i.log.gz">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${business_log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${business_log_file_count}"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="org.springframework" level="${lib_log_level}" additivity="true">
+            <AppenderRef ref="Spring"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="org.mybatis.spring" level="${lib_log_level}" additivity="true">
+            <AppenderRef ref="Spring"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="com.yanhuan.yhssm" level="${business_log_level}" additivity="true">
+            <AppenderRef ref="basessm"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="launcher" level="INFO" additivity="true">
+            <AppenderRef ref="basessm"/>
+        </AsyncLogger>
+
+        <!-- 将调用mybatis的dao的包填入此处即可 -->
+        <AsyncLogger name="com.yanhuan.yhssm.dao" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" />
+        </AsyncLogger>
+
+        <!-- 配置记录器级别 -->
+        <!--<Root level="debug">-->
+            <!--&lt;!&ndash; 输出设置 &ndash;&gt;-->
+            <!--<AppenderRef ref="Console"/>-->
+        <!--</Root>-->
+    </Loggers>
+
+</Configuration>

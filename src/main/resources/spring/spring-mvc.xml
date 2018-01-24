@@ -6,19 +6,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描web相关的bean -->
-    <context:component-scan base-package="com.yanhuan.yhssm.controller.*"/>
+    <context:component-scan base-package="com.yanhuan.yhssm.controller"/>
 
     <!-- 开启SpringMVC注解模式 -->
     <mvc:annotation-driven/>
-    <mvc:resources location="/statics/" mapping="/statics/**" cache-period="864000"/>
 
     <!-- 静态资源默认servlet配置 -->
     <mvc:default-servlet-handler/>
 
+    <mvc:resources location="/statics/" mapping="/statics/*" cache-period="864000"/>
+
     <!--通用视图解析器-->
     <bean id="viewResolverCommon" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/page/"/>
-        <property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
+        <property name="suffix" value=".jsp"/>
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.InternalResourceView</value>
         </property>

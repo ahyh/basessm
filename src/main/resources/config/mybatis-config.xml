@@ -18,6 +18,7 @@
         <setting name="defaultStatementTimeout" value="25000" />
         <setting name="cacheEnabled" value="false" />
         <setting name="defaultExecutorType" value="REUSE" />
+        <setting name="logImpl" value="LOG4J2"/>
     </settings>
 
     <typeAliases>
@@ -47,5 +48,7 @@
         <mapper resource="mapper/OrderMainMapper.xml" />
         <mapper resource="mapper/OrderDetailMapper.xml" />
     </mappers>
+
+
 
 </configuration>
