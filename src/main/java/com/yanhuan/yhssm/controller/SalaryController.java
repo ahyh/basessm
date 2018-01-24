@@ -1,6 +1,8 @@
 package com.yanhuan.yhssm.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.yanhuan.yhssm.annotations.MethodAnnotation;
+import com.yanhuan.yhssm.annotations.PropAnnotation;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.service.SalaryService;
@@ -26,7 +28,8 @@ public class SalaryController {
     private SalaryService salaryService;
 
     @RequestMapping(value = "gotoSalary")
-    public String gotoSalary(Model model,SalaryCondition condition) {
+    @MethodAnnotation
+    public String gotoSalary(Model model,@PropAnnotation SalaryCondition condition) {
         logger.error(JSON.toJSON(condition));
         Salary salary = salaryService.getSalaryByCondition(condition);
         if (null != salary) {
