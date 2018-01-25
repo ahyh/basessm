@@ -1,6 +1,5 @@
 package com.yanhuan.yhssm.aop;
 
-import com.yanhuan.yhssm.controller.SalaryController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -16,13 +15,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 方法AOP，用于切加Controller注解的类中加MethodAnnotation注解的方法
  * Created by yanhuan1 on 2018/1/24.
  */
 @Aspect
 @Component
 public class MethodAspect {
 
-    private static Logger log = LogManager.getLogger(SalaryController.class);
+    private static Logger log = LogManager.getLogger(MethodAspect.class);
 
     //定义为Controller的类将被拦截
     @Pointcut("within(@org.springframework.stereotype.Controller *) ")

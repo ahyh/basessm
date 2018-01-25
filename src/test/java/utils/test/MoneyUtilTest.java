@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 
 /**
+ * MoneyUtil测试类
  * Created by yanhuan1 on 2018/1/20.
  */
 public class MoneyUtilTest {

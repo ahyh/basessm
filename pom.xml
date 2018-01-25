@@ -140,7 +140,7 @@
             <version>3.2.2</version>
         </dependency>
 
-        <!-- junit test -->
+        <!-- junit codeTxTest -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -154,7 +154,7 @@
             <version>${github.pagehelper.version}</version>
         </dependency>
 
-        <!-- spring test -->
+        <!-- spring codeTxTest -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -265,7 +265,7 @@
 
         <!-- 测试环境 -->
         <profile>
-            <id>test</id>
+            <id>codeTxTest</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>

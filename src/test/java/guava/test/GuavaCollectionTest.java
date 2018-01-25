@@ -2,6 +2,7 @@ package guava.test;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Interner;
 import com.google.common.collect.Multimap;
 import org.junit.Test;
 
@@ -16,18 +17,18 @@ import java.util.stream.Collectors;
 public class GuavaCollectionTest {
 
     private static List<Detail> detailList = Arrays.asList(
-            new Detail("10001", "100010001"),
-            new Detail("10001", "100010002"),
-            new Detail("10001", "100010003"),
-            new Detail("10001", "100010003"),
-            new Detail("20002", "200020004"),
-            new Detail("20002", "200020005"),
-            new Detail("20002", "200020009"),
-            new Detail("20002", "200020009"),
-            new Detail("30003", "300030006"),
-            new Detail("30003", "300030007"),
-            new Detail("30003", "300030008"),
-            new Detail("30003", "300030008")
+            new Detail("10001", "100010001",1),
+            new Detail("10001", "100010002",2),
+            new Detail("10001", "100010003",3),
+            new Detail("10001", "100010003",4),
+            new Detail("20002", "200020004",5),
+            new Detail("20002", "200020005",6),
+            new Detail("20002", "200020009",7),
+            new Detail("20002", "200020009",8),
+            new Detail("30003", "300030006",9),
+            new Detail("30003", "300030007",1),
+            new Detail("30003", "300030008",2),
+            new Detail("30003", "300030008",3)
     );
 
     @Test
@@ -54,9 +55,7 @@ public class GuavaCollectionTest {
         }
         Map<String, Collection<String>> map = multimap.asMap();
         for (Map.Entry<String,Collection<String>> entry:map.entrySet()){
-            for (String s : entry.getValue()) {
-                System.out.println(entry.getKey() + ":" + s);
-            }
+            entry.getValue().stream().forEach(System.out::println);
         }
     }
 
@@ -86,12 +85,15 @@ class Detail {
 
     private String goodsNo;
 
+    private Integer qty;
+
     public Detail() {
     }
 
-    public Detail(String orderNo, String goodsNo) {
+    public Detail(String orderNo, String goodsNo, Integer qty) {
         this.orderNo = orderNo;
         this.goodsNo = goodsNo;
+        this.qty = qty;
     }
 
     public String getOrderNo() {
@@ -110,12 +112,20 @@ class Detail {
         this.goodsNo = goodsNo;
     }
 
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
     @Override
     public String toString() {
         return "Detail{" +
                 "orderNo='" + orderNo + '\'' +
                 ", goodsNo='" + goodsNo + '\'' +
+                ", qty=" + qty +
                 '}';
     }
-
 }

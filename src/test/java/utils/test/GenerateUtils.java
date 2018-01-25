@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
+ * 生成测试数据用的工具类
  * Created by yanhuan1 on 2018/1/20.
  */
 public class GenerateUtils {
@@ -17,17 +18,17 @@ public class GenerateUtils {
     private static List<String> secondNameList = Arrays.asList("伟", "辉", "威", "亮", "安", "乔", "峰", "仁", "志", "慧", "子轩", "紫萱", "梓轩", "勇", "超", "静", "静静");
 
     private static List<Goods> goodsList = Arrays.asList(
-            new Goods((byte)0,"100001", "华为mate10", 1, "电子", 11, "通讯", 111, "手机","华为","金色",new BigDecimal("4999.00")),
-            new Goods((byte)0,"100002", "三星S8", 1, "电子", 11, "通讯", 111, "手机","三星","银色",new BigDecimal("6999.00")),
-            new Goods((byte)0,"100003", "小米Mix", 1, "电子", 11, "通讯", 111, "手机","小米","白色",new BigDecimal("1999.00")),
-            new Goods((byte)0,"100004", "苹果X", 1, "电子", 11, "通讯", 111, "手机","Apple","金色",new BigDecimal("9999.00")),
-            new Goods((byte)0,"100005", "魅族4Plus", 1, "电子", 11, "通讯", 111, "手机","魅族","蓝色",new BigDecimal("2111.00")),
-            new Goods((byte)0,"100006", "锤子T3", 1, "电子", 11, "通讯", 111, "手机","锤子","黑色",new BigDecimal("1566.00")),
-            new Goods((byte)0,"100007", "中兴SS", 1, "电子", 11, "通讯", 111, "手机","中兴","亮色",new BigDecimal("3588.00")),
-            new Goods((byte)1,"200001", "水浒传", 2, "图书", 21, "名著", 211, "古典小说",null,null,new BigDecimal("55.00")),
-            new Goods((byte)1,"200002", "西游记", 2, "图书", 21, "名著", 211, "古典小说",null,null,new BigDecimal("66.00")),
-            new Goods((byte)1,"200003", "三国演义", 2, "图书", 21, "名著", 211, "古典小说",null,null,new BigDecimal("53.00")),
-            new Goods((byte)1,"200003", "红楼梦", 2, "图书", 21, "名著", 211, "古典小说",null,null,new BigDecimal("77.00"))
+            new Goods((byte) 0, "100001", "华为mate10", 1, "电子", 11, "通讯", 111, "手机", "华为", "金色", new BigDecimal("4999.00")),
+            new Goods((byte) 0, "100002", "三星S8", 1, "电子", 11, "通讯", 111, "手机", "三星", "银色", new BigDecimal("6999.00")),
+            new Goods((byte) 0, "100003", "小米Mix", 1, "电子", 11, "通讯", 111, "手机", "小米", "白色", new BigDecimal("1999.00")),
+            new Goods((byte) 0, "100004", "苹果X", 1, "电子", 11, "通讯", 111, "手机", "Apple", "金色", new BigDecimal("9999.00")),
+            new Goods((byte) 0, "100005", "魅族4Plus", 1, "电子", 11, "通讯", 111, "手机", "魅族", "蓝色", new BigDecimal("2111.00")),
+            new Goods((byte) 0, "100006", "锤子T3", 1, "电子", 11, "通讯", 111, "手机", "锤子", "黑色", new BigDecimal("1566.00")),
+            new Goods((byte) 0, "100007", "中兴SS", 1, "电子", 11, "通讯", 111, "手机", "中兴", "亮色", new BigDecimal("3588.00")),
+            new Goods((byte) 1, "200001", "水浒传", 2, "图书", 21, "名著", 211, "古典小说", null, null, new BigDecimal("55.00")),
+            new Goods((byte) 1, "200002", "西游记", 2, "图书", 21, "名著", 211, "古典小说", null, null, new BigDecimal("66.00")),
+            new Goods((byte) 1, "200003", "三国演义", 2, "图书", 21, "名著", 211, "古典小说", null, null, new BigDecimal("53.00")),
+            new Goods((byte) 1, "200003", "红楼梦", 2, "图书", 21, "名著", 211, "古典小说", null, null, new BigDecimal("77.00"))
     );
 
     private static List<Store> storeList = Arrays.asList(

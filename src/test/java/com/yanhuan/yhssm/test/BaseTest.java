@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-main.xml"})
+@ContextConfiguration(locations = {"classpath:spring/spring-test-*.xml"})
 public class BaseTest {
 
     private static Logger logger = LogManager.getLogger(BaseTest.class);
