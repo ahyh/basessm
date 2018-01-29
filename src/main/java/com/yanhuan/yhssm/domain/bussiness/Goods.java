@@ -36,6 +36,10 @@ public class Goods implements Serializable {
     public Goods() {
     }
 
+    public Goods(String goodsNo){
+        this.goodsNo = goodsNo;
+    }
+
     public Goods(Byte goodsType,String goodsNo, String goodsName, Integer firstCateNo, String firstCateName, Integer secondCateNo, String secondCateName, Integer thirdCateNo, String thirdCateName, String brand, String color, BigDecimal price) {
         this.goodsType = goodsType;
         this.goodsNo = goodsNo;

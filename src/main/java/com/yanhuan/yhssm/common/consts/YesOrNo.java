@@ -1,7 +1,5 @@
 package com.yanhuan.yhssm.common.consts;
 
-import com.yanhuan.yhssm.domain.bussiness.Goods;
-
 /**
  * Created by yanhuan1 on 2018/1/20.
  */

@@ -8,6 +8,7 @@ import org.junit.Test;
 import javax.annotation.Resource;
 
 /**
+ * 编程式事务测试
  * Created by yanhuan1 on 2018/1/25.
  */
 public class CodeTxTest extends BaseTest {

@@ -21,6 +21,7 @@
         <github.pagehelper.version>4.1.6</github.pagehelper.version>
         <disruptor.version>3.2.0</disruptor.version>
         <guava.version>19.0</guava.version>
+        <poi.version>3.15</poi.version>
     </properties>
 
 
@@ -135,9 +136,9 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
         </dependency>
 
         <!-- junit codeTxTest -->
@@ -218,6 +219,18 @@
             <artifactId>reflectasm</artifactId>
             <version>1.11.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -265,7 +278,7 @@
 
         <!-- 测试环境 -->
         <profile>
-            <id>codeTxTest</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
