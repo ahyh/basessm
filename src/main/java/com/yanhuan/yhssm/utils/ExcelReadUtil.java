@@ -6,22 +6,22 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 读取Excel的工具类
  * Created by yanhuan1 on 2018/1/28.
  */
-public class ExcelReadUtil {
+public final class ExcelReadUtil {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -32,6 +32,7 @@ public class ExcelReadUtil {
         //2-获取属性集合
         List<Field> fieldList = getFieldListFromArray(fieldNameArray, clazz);
 
+        //3-excel数据转换为对象的集合
         List<T> ts = parseExcelData2List(workBook, fieldList, clazz);
 
         return ts;

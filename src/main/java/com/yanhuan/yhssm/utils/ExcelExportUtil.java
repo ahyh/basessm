@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Excel相关工具类
@@ -47,6 +49,16 @@ public final class ExcelExportUtil {
         // 设置报表标题
         createColumHeader(workbook, sheet, fieldNames);
         return workbook;
+    }
+
+    public static <T> void exportBigFile(HttpServletResponse response, String fileName, String[] titles, String[] properties, List<T> list) throws Exception {
+
+        //如果数量大于65536   则按照xlsx版本导出
+        setResponseParam(response, fileName, EXPORT_SUFFIXNAME_2007);
+        SXSSFWorkbook swb = exportBigExcel(fileName, titles, properties, list);
+        swb.write(response.getOutputStream());
+        swb.dispose();
+
     }
 
     public static <T> void exportFile(HttpServletResponse response, String fileName, String[] titles, String[] properties, List<T> list) throws Exception {
@@ -136,10 +148,16 @@ public final class ExcelExportUtil {
         if (CollectionUtils.isEmpty(list)) {
             throw new Exception(PARAM_LIST);
         }
-        SXSSFWorkbook workbook = new SXSSFWorkbook(100);
+        SXSSFWorkbook workbook = new SXSSFWorkbook(-1);
         int size = (list.size() - 1) / MAX_NUM_2007 + 1;
+        Font font;
+        Row row;
+        List<T> subList;
+        Field[] columnFields;
+        CreationHelper createHelper;
+        CellStyle style;
         for (int i = 0; i < size; i++) {
-            List<T> subList = list.subList(MAX_NUM_2007 * i, MAX_NUM_2007 * (i + 1) > list.size() ? list.size() : MAX_NUM_2007 * (i + 1));
+            subList = list.subList(MAX_NUM_2007 * i, MAX_NUM_2007 * (i + 1) > list.size() ? list.size() : MAX_NUM_2007 * (i + 1));
             if (i >= 1) {
                 fileName = fileName + i;
             }
@@ -149,24 +167,26 @@ public final class ExcelExportUtil {
             createColumHeader(workbook, sheet, fieldNames);
             try {
                 //实体类处理
-                Field[] columnFields = createColumnFileds(fieldPreNames, subList.get(0).getClass());
+                columnFields = createColumnFileds(fieldPreNames, subList.get(0).getClass());
                 //创建单元格
                 int rowCount = 1;
-                CellStyle style = workbook.createCellStyle();
-                CreationHelper createHelper = workbook.getCreationHelper();
+                style = workbook.createCellStyle();
+                createHelper = workbook.getCreationHelper();
                 style.setDataFormat(createHelper.createDataFormat().getFormat("yyyy/MM/dd HH:mm:ss"));
-                Font font = workbook.createFont();
+                font = workbook.createFont();
                 font.setBold(true);
                 style.setFont(font);
                 style.setBorderBottom(BorderStyle.THIN);
                 style.setBorderTop(BorderStyle.THIN);
                 style.setBorderLeft(BorderStyle.THIN);
                 style.setBorderRight(BorderStyle.THIN);
-                Row row;
                 for (T t : subList) {
                     row = sheet.createRow(rowCount);
                     createCell(row, style, columnFields, t);
                     rowCount++;
+                    if (rowCount % 1000 == 0) {
+                        sheet.flushRows(1000);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -175,7 +195,6 @@ public final class ExcelExportUtil {
         }
         return workbook;
     }
-
 
     /**
      * 设置列头

@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class GenerateUtils {
 
-    private static List<String> firstNameList = Arrays.asList("赵", "钱", "孙", "李", "周", "吴", "郑", "王", "张", "严", "朱", "唐", "许", "余");
+    private static List<String> firstNameList = Arrays.asList("赵", "钱", "孙", "李", "周", "吴", "郑", "王", "张", "严", "朱", "唐", "许", "余", "孔", "包");
 
     private static List<String> secondNameList = Arrays.asList("伟", "辉", "威", "亮", "安", "乔", "峰", "仁", "志", "慧", "子轩", "紫萱", "梓轩", "勇", "超", "静", "静静");
 

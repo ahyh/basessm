@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import utils.test.GenerateUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -25,6 +26,36 @@ public class SalaryServiceTest extends BaseTest {
 
     @Resource
     private SalaryService salaryService;
+
+    @Test
+    public void testInsertBatch() {
+        long start = System.currentTimeMillis();
+        List<Salary> salaryList = new ArrayList<>(100);
+        Salary salary;
+        Date date = new Date();
+        for (int k = 0; k < 100; k++) {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    salary = new Salary();
+                    salary.setName(GenerateUtils.getNameRandom());
+                    salary.setAge(k + i + j);
+                    salary.setSex((byte) i);
+                    salary.setCompany(k + "jd.com" + i);
+                    salary.setSalary(new BigDecimal(i * 100 + j * 10 + i * j));
+                    salary.setCreateTime(date);
+                    salary.setUpdateTime(date);
+                    salary.setCreateUser("yanhuan");
+                    salary.setUpdateUser("yanhuan");
+                    salary.setIsDelete((byte) 0);
+                    salaryList.add(salary);
+                }
+            }
+            salaryService.batchInsert(salaryList);
+        }
+        long time = System.currentTimeMillis() - start;
+        System.out.println(time);
+    }
+
 
     /**
      * 测试插入方法，插入后的主键值可以通过salary.getId()方法获取
@@ -85,11 +116,11 @@ public class SalaryServiceTest extends BaseTest {
         List<Salary> salaryList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             s1 = new Salary();
-            s1.setName("小张"+i);
+            s1.setName("小张" + i);
             s1.setAge(1);
             s1.setSex((byte) 1);
             s1.setCompany("tx.com");
-            s1.setSalary(new BigDecimal(Math.random()*2000));
+            s1.setSalary(new BigDecimal(Math.random() * 2000));
             s1.setCreateTime(new Date());
             s1.setUpdateTime(new Date());
             s1.setCreateUser("yanhuan");
@@ -101,19 +132,19 @@ public class SalaryServiceTest extends BaseTest {
     }
 
     @Test
-    public void testBatchDelete(){
-        List<Long> idList = Lists.newArrayList(8l,9l);
+    public void testBatchDelete() {
+        List<Long> idList = Lists.newArrayList(8l, 9l);
         Integer integer = salaryService.batchDelete(idList);
         Assert.assertTrue(integer == 2);
     }
 
     @Test
-    public void testbatchSaveOrUpdate(){
+    public void testbatchSaveOrUpdate() {
         Salary salary;
         List<Salary> salaryList = new ArrayList<>();
-        for (int i = 0; i < 10; i+=2) {
+        for (int i = 0; i < 10; i += 2) {
             salary = new Salary();
-            salary.setName("小张"+i);
+            salary.setName("小张" + i);
             salary.setAge(1);
             salary.setSex((byte) 1);
             salary.setCompany("jd.com");

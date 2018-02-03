@@ -24,9 +24,8 @@ public class ExcelExportTest extends BaseTest{
 
     @Test
     public void testExcelExport() throws Exception{
-        int i=0;
         List<Salary> salaryList = salaryService.findSalaryList(new SalaryCondition());
-        SXSSFWorkbook workbook = ExcelExportUtil.exportSmallFile(ExcelCellMapping.Salary.FILENAME, ExcelCellMapping.Salary.TITLES, ExcelCellMapping.Salary.PROPERTIES, salaryList);
+        SXSSFWorkbook workbook = ExcelExportUtil.exportBigExcel(ExcelCellMapping.Salary.FILENAME, ExcelCellMapping.Salary.TITLES, ExcelCellMapping.Salary.PROPERTIES, salaryList);
         //只能在一级目录下创建出来
 //        FileOutputStream outputStream = new FileOutputStream("D://excelTest.xls");
         File file = new File("D://excel");
