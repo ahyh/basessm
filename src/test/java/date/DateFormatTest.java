@@ -1,20 +1,15 @@
 package date;
 
-import com.google.common.collect.Lists;
-import org.junit.Test;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
+ * 测试日期的线程安全问题
  * Created by yanhuan1 on 2018/1/29.
  */
 public class DateFormatTest extends Thread{
 
     public static void main(String[] args){
-
         DateFormatTest test = new DateFormatTest();
         Thread t1 = new Thread(test,"t1");
         Thread t2 = new Thread(test,"t2");
