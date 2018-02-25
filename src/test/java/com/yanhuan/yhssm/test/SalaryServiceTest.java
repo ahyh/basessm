@@ -25,7 +25,7 @@ public class SalaryServiceTest extends BaseTest {
     private static Logger logger = LogManager.getLogger(SalaryServiceTest.class);
 
     @Resource
-    private SalaryService salaryService;
+    protected SalaryService salaryService;
 
     @Test
     public void testInsertBatch() {
@@ -63,10 +63,10 @@ public class SalaryServiceTest extends BaseTest {
     @Test
     public void testInsert() {
         Salary salary = new Salary();
-        salary.setName("小王");
+        salary.setName("$$$${name}");
         salary.setAge(31);
         salary.setSex((byte) 1);
-        salary.setCompany("tx.com");
+        salary.setCompany("jd.com");
         salary.setSalary(new BigDecimal(22222));
         salary.setCreateTime(new Date());
         salary.setUpdateTime(new Date());
@@ -98,9 +98,16 @@ public class SalaryServiceTest extends BaseTest {
     @Test
     public void testSelectByCondition() {
         SalaryCondition condition = new SalaryCondition();
-        condition.setId(2l);
+        condition.setName("${name}$");
         Salary salary = salaryService.getSalaryByCondition(condition);
-        System.out.println(salary);
+        Assert.assertTrue(salary != null);
+    }
+
+    @Test
+    public void testUpdate(){
+        Salary salary = new Salary();
+        salary.setName("${name}$");
+        salaryService.update(salary);
     }
 
     @Test

@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.yanhuan.yhssm.annotations.MethodAnnotation;
 import com.yanhuan.yhssm.annotations.PropAnnotation;
 import com.yanhuan.yhssm.common.consts.ExcelCellMapping;
+import com.yanhuan.yhssm.domain.condition.OrderMainCondition;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.OrderMain;
 import com.yanhuan.yhssm.domain.pojo.Salary;
+import com.yanhuan.yhssm.service.OrderMainService;
 import com.yanhuan.yhssm.service.SalaryService;
 import com.yanhuan.yhssm.utils.ExcelExportUtil;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Salary控制器
@@ -28,8 +35,13 @@ public class SalaryController {
 
     private static Logger logger = LogManager.getLogger(SalaryController.class);
 
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+
     @Resource
     private SalaryService salaryService;
+
+    @Resource
+    private OrderMainService orderMainService;
 
     @RequestMapping(value = "gotoSalary")
     @MethodAnnotation
@@ -39,6 +51,19 @@ public class SalaryController {
         if (null != salary) {
             model.addAttribute("salary", salary);
         }
+        Callable<OrderMain> orderMainCallable = () -> {
+            System.out.println("Enter callable");
+            List<OrderMain> orderMainList = orderMainService.findOrderMainList(new OrderMainCondition());
+            for (OrderMain orderMain : orderMainList) {
+                orderMain.setPayStatus((byte) 2);
+                Thread.sleep(10000);
+                orderMainService.update(orderMain);
+            }
+            System.out.println("Execute callable");
+            return orderMainList.get(orderMainList.size() - 1);
+        };
+        Future<OrderMain> submit = executorService.submit(orderMainCallable);
+        System.out.println("after submit");
         return "salary/salary";
     }
 
