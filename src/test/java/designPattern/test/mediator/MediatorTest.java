@@ -8,16 +8,21 @@ import org.junit.Test;
 public class MediatorTest {
 
     @Test
-    public void testMediator(){
-        MainBoard mediator = new MainBoard();
-        CDDriver cdDriver = new CDDriver(mediator);
-        CPU cpu = new CPU(mediator);
-        VideoCard videoCard = new VideoCard(mediator);
-        SoundCard soundCard = new SoundCard(mediator);
-        mediator.setCdDriver(cdDriver);
-        mediator.setCpu(cpu);
-        mediator.setVideoCard(videoCard);
-        mediator.setSoundCard(soundCard);
-        cdDriver.readCD();
+    public void testMediator() {
+        Boss boss = new Boss();
+        DevDepartment devDepartment = new DevDepartment(boss);
+        boss.setDevDepartment(devDepartment);
+        HRDepartment hrDepartment = new HRDepartment(boss);
+        boss.setHrDepartment(hrDepartment);
+        MarketDepartment marketDepartment = new MarketDepartment(boss);
+        boss.setMarketDepartment(marketDepartment);
+        FinanDepartment finanDepartment = new FinanDepartment(boss);
+        boss.setFinanDepartment(finanDepartment);
+
+        boss.receiveMsg(devDepartment,"研发部需要加人");
+        boss.sendMsg(hrDepartment,"研发部需要加人");
+
+        boss.receiveMsg(hrDepartment,"发布招聘公告，招研发");
+        boss.sendMsg(finanDepartment,"准备工资");
     }
 }

@@ -1,13 +1,13 @@
 package designPattern.test.mediator;
 
 /**
- * 设备
+ * 抽象同事类
  */
-public abstract class Device {
+public abstract class Colleague {
 
     private Mediator mediator;
 
-    public Device(Mediator mediator){
+    public Colleague(Mediator mediator) {
         this.mediator = mediator;
     }
 
@@ -18,4 +18,9 @@ public abstract class Device {
     public void setMediator(Mediator mediator) {
         this.mediator = mediator;
     }
+
+    public abstract void sendMsg(String msg);
+
+    public abstract void execute(String msg);
+
 }
