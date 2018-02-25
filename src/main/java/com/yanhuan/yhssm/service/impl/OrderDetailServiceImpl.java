@@ -7,7 +7,7 @@ import com.yanhuan.yhssm.dao.OrderDetailDao;
 import com.yanhuan.yhssm.domain.condition.OrderDetailCondition;
 import com.yanhuan.yhssm.domain.pojo.OrderDetail;
 import com.yanhuan.yhssm.service.OrderDetailService;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

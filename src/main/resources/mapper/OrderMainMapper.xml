@@ -248,7 +248,7 @@
                     order_amount = #{orderAmount,jdbcType=DECIMAL},
                 </if>
                 <if test="actualAmount != null">
-                    actual_mount = #{actualAmount,jdbcType=VARCHAR},
+                    actual_amount = #{actualAmount,jdbcType=VARCHAR},
                 </if>
                 <if test="provinceNo != null and provinceNo != 0">
                     province_no = #{provinceNo,jdbcType=INTEGER},
