@@ -63,4 +63,11 @@ public class LambdaTest1 {
         set.stream().forEach(System.out::println);
     }
 
+    @Test
+    public void testInteger(){
+        Integer a = new Integer(100);
+        Integer b = new Integer(100);
+        System.out.println(a == b);   //false
+    }
+
 }
