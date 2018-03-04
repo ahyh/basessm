@@ -1,3 +1,5 @@
+CREATE DATABASE yanhuan;
+USE yanhuan;
 CREATE TABLE `salary` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT '姓名',
