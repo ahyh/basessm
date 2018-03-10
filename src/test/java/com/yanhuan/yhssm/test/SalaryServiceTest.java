@@ -63,7 +63,7 @@ public class SalaryServiceTest extends BaseTest {
     @Test
     public void testInsert() {
         Salary salary = new Salary();
-        salary.setName("$$$${name}");
+        salary.setName("$$$${name}$$$");
         salary.setAge(31);
         salary.setSex((byte) 1);
         salary.setCompany("jd.com");
@@ -74,6 +74,12 @@ public class SalaryServiceTest extends BaseTest {
         salary.setUpdateUser("yanhuan");
         Integer insert = salaryService.insert(salary);
         System.out.println(insert);
+    }
+
+    @Test
+    public void testGet(){
+        List<Salary> byDateSub = salaryService.findByDateSub(20);
+        System.out.println();
     }
 
     @Test

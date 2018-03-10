@@ -212,4 +212,11 @@
         delete from salary where id = #{id,jdbcType=BIGINT}
     </delete>
 
+    <select id="findByDateSub" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="allColumns"/>
+        from salary
+        where create_time>=DATE_SUB(NOW(),INTERVAL #{days,jdbcType=INTEGER} DAY)
+    </select>
+
 </mapper>

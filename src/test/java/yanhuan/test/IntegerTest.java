@@ -2,6 +2,9 @@ package yanhuan.test;
 
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * 整数测试
  */
@@ -27,5 +30,10 @@ public class IntegerTest {
         Integer aaa = 200000;
         Integer bbb = 200000;
         System.out.println(aaa == bbb); //false
+    }
+
+    @Test
+    public void testLinkedMap(){
+        Map<String,Object> map = new LinkedHashMap<>();
     }
 }

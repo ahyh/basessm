@@ -43,4 +43,5 @@ public interface SalaryService {
      */
     Integer deletePhysics(Long id);
 
+    List<Salary> findByDateSub(Integer days);
 }

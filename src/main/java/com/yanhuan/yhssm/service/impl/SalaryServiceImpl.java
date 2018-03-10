@@ -88,5 +88,10 @@ public class SalaryServiceImpl implements SalaryService {
         return salaryDao.deletePhysics(id);
     }
 
+    @Override
+    public List<Salary> findByDateSub(Integer days) {
+        return salaryDao.findByDateSub(days);
+    }
+
 
 }

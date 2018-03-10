@@ -55,6 +55,7 @@
         <property name="basePackage" value="com.yanhuan.yhssm.dao"/>
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--<property name="sqlSessionFactory" value="sqlSessionFactory"/>-->
     </bean>
 
     <!-- 配置事务管理器 -->

@@ -29,7 +29,7 @@ public class FlyWeightTest {
         book2.setBookName("红楼梦");
         book2.setIsbn("1234567002");
         book2.setPrice(new BigDecimal(25.50));
-        book2.setPublisher(factory.getPublisher(1l));
+        book2.setPublisher(factory.getPublisher(2l));
 
         book3.setId(1l);
         book3.setAuthor("施耐庵");
@@ -43,12 +43,9 @@ public class FlyWeightTest {
         book4.setBookName("西游记");
         book4.setIsbn("1234567004");
         book4.setPrice(new BigDecimal(23.50));
-        book4.setPublisher(factory.getPublisher(1l));
-
-        System.out.println(book1);
-        System.out.println(book2);
-        System.out.println(book3);
-        System.out.println(book4);
+        book4.setPublisher(factory.getPublisher(2l));
+        System.out.println(book1.getPublisher() == book3.getPublisher());
+        System.out.println(book2.getPublisher() == book4.getPublisher());
 
     }
 
