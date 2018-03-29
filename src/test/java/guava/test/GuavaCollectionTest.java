@@ -1,5 +1,6 @@
 package guava.test;
 
+import com.google.common.base.Function;
 import com.google.common.collect.*;
 import org.junit.Test;
 
@@ -160,6 +161,16 @@ public class GuavaCollectionTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testNullable(){
+        List<String> strList = Lists.transform(detailList, new Function<Detail, String>() {
+            @Override
+            public String apply(Detail detail) {
+                return null;
+            }
+        });
     }
 
 }
