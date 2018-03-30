@@ -12,6 +12,7 @@
         <!-- 设置项目编码编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <javaee-api.version>7.0</javaee-api.version>
         <spring.version>4.3.5.RELEASE</spring.version>
         <aspectj-version>1.8.6</aspectj-version>
         <mybatis.version>3.4.1</mybatis.version>
@@ -19,9 +20,12 @@
         <druid.version>1.0.20</druid.version>
         <log4j.version>2.3</log4j.version>
         <github.pagehelper.version>4.1.6</github.pagehelper.version>
-        <disruptor.version>3.2.0</disruptor.version>
+        <disruptor.version>3.3.7</disruptor.version>
         <guava.version>19.0</guava.version>
         <poi.version>3.15</poi.version>
+        <freemarker.version>2.3.23</freemarker.version>
+        <junit.version>4.12</junit.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
     </properties>
 
 
@@ -30,7 +34,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>${javaee-api.version}</version>
         </dependency>
 
         <!-- JSON -->
@@ -138,14 +142,14 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
 
         <!-- junit codeTxTest -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -166,7 +170,7 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
+            <version>${freemarker.version}</version>
         </dependency>
 
         <!-- log日志 -->
@@ -210,7 +214,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>2.2.2</version>
+            <version>3.2.6</version>
         </dependency>
 
         <!--反射工具类 -->
