@@ -35,6 +35,13 @@ public class SelectBag {
         System.out.println(optionalCombination.size());
     }
 
+    /**
+     * 在集合detailList中找出detail.getQty()总和最接近needQty的组合
+     *
+     * @param detailList Detail集合，Detail中包含qty字段，用于选出最优组合
+     * @param needQty    需要的数量，有一个或多个Detail实例的qty组合
+     * @return
+     */
     public static List<Detail> getOptionalCombination(List<Detail> detailList, Integer needQty) {
         Preconditions.checkArgument(CollectionUtils.isNotEmpty(detailList), "输入的数据不能为空!");
         Preconditions.checkArgument(needQty != null, "需求数量不能为空");
@@ -76,8 +83,6 @@ public class SelectBag {
         }
         return newList;
     }
-
-
 }
 
 class Detail {
