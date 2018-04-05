@@ -35,13 +35,13 @@ public class SalaryManager extends BaseManager {
                 }
             }
 
-            private Salary buildSalary(){
+            private Salary buildSalary() {
                 Salary salary = new Salary();
-                salary.setName("陈昔");
-                salary.setAge(18);
-                salary.setSex((byte) 1);
+                salary.setName("okokok");
+                salary.setAge(28);
+                salary.setSex((byte) 0);
                 salary.setCompany("京东物流");
-                salary.setSalary(new BigDecimal(22222));
+                salary.setSalary(new BigDecimal(2456));
                 salary.setCreateTime(new Date());
                 salary.setUpdateTime(new Date());
                 salary.setCreateUser("yanhuan");

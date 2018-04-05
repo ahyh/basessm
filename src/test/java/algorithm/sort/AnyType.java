@@ -47,12 +47,16 @@ public class AnyType implements Comparable<AnyType> {
     @Override
     public int compareTo(AnyType o) {
         Preconditions.checkArgument(o != null, "o cannot null!");
-        if (o.getQty() != null) {
-            return this.getQty().compareTo(o.getQty());
+        if (o instanceof AnyType) {
+            AnyType anyType = (AnyType) o;
+            if (anyType.getQty() != null) {
+                return this.getQty().compareTo(anyType.getQty());
+            }
+            if (StringUtils.isNoneEmpty(this.getName())) {
+                return this.getName().compareTo(anyType.getName());
+            }
+            return 0;
         }
-        if (StringUtils.isNoneEmpty(this.getName())) {
-            return this.getName().compareTo(o.getName());
-        }
-        return 0;
+        throw new RuntimeException("Cannot support Comparable!");
     }
 }
