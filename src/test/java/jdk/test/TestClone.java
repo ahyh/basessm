@@ -1,14 +1,12 @@
 package jdk.test;
 
 import com.google.common.collect.Lists;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 
 /**
  * 深复制浅复制问题研究

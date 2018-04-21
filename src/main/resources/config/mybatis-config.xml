@@ -8,26 +8,32 @@
         <property name="dialect" value="MYSQL"/>
     </properties>
     <settings>
-        <setting name="cacheEnabled" value="true" />
-        <setting name="lazyLoadingEnabled" value="false" />
-        <setting name="multipleResultSetsEnabled" value="true" />
-        <setting name="useColumnLabel" value="true" />
-        <setting name="useGeneratedKeys" value="true" />
-        <setting name="autoMappingBehavior" value="PARTIAL" />
-        <setting name="defaultExecutorType" value="SIMPLE" />
-        <setting name="defaultStatementTimeout" value="25000" />
-        <setting name="cacheEnabled" value="false" />
-        <setting name="defaultExecutorType" value="REUSE" />
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25000"/>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
 
     <typeAliases>
         <typeAlias alias="Salary" type="com.yanhuan.yhssm.domain.pojo.Salary"/>
+        <typeAlias alias="Bill" type="com.yanhuan.yhssm.domain.pojo.Bill"/>
+        <typeAlias alias="BillSubMain" type="com.yanhuan.yhssm.domain.pojo.BillSubMain"/>
+        <typeAlias alias="BillSubDetail" type="com.yanhuan.yhssm.domain.pojo.BillSubDetail"/>
         <typeAlias alias="OrderMain" type="com.yanhuan.yhssm.domain.pojo.OrderMain"/>
         <typeAlias alias="OrderDetail" type="com.yanhuan.yhssm.domain.pojo.OrderDetail"/>
         <typeAlias alias="SalaryCondition" type="com.yanhuan.yhssm.domain.condition.SalaryCondition"/>
         <typeAlias alias="OrderMainCondition" type="com.yanhuan.yhssm.domain.condition.OrderMainCondition"/>
         <typeAlias alias="OrderDetailCondition" type="com.yanhuan.yhssm.domain.condition.OrderDetailCondition"/>
+        <typeAlias alias="BillCondition" type="com.yanhuan.yhssm.domain.condition.BillCondition"/>
+        <typeAlias alias="BillSubMainCondition" type="com.yanhuan.yhssm.domain.condition.BillSubMainCondition"/>
+        <typeAlias alias="BillSubDetailCondition" type="com.yanhuan.yhssm.domain.condition.BillSubDetailCondition"/>
     </typeAliases>
 
     <plugins>
@@ -43,12 +49,14 @@
         </plugin>
     </plugins>
 
+    <!-- mapper文件 -->
     <mappers>
-        <mapper resource="mapper/SalaryMapper.xml" />
-        <mapper resource="mapper/OrderMainMapper.xml" />
-        <mapper resource="mapper/OrderDetailMapper.xml" />
+        <mapper resource="mapper/SalaryMapper.xml"/>
+        <mapper resource="mapper/OrderMainMapper.xml"/>
+        <mapper resource="mapper/OrderDetailMapper.xml"/>
+        <mapper resource="mapper/BillMapper.xml"/>
+        <mapper resource="mapper/BillSubMainMapper.xml"/>
+        <mapper resource="mapper/BillSubDetailMapper.xml"/>
     </mappers>
-
-
 
 </configuration>

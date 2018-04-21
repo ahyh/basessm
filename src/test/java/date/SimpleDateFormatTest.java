@@ -3,10 +3,12 @@ package date;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 测试SimpleDateFormat类的非线程安全性
@@ -95,6 +97,15 @@ public class SimpleDateFormatTest {
                 }
             });
         }
+    }
+
+    /**
+     * 日期
+     */
+    @Test
+    public void testFormat1(){
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); //2018-04-17 10:06:22 12小时制
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())); //2018-04-17 10:06:22 24小时制
     }
 
 }

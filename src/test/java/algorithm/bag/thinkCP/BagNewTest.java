@@ -78,7 +78,56 @@ public class BagNewTest {
         return sum;
     }
 
+    @Test
+    public void testStack() {
+        List<Detail> detailList = Lists.newArrayList(
+                new Detail(1l, "1", 1),
+                new Detail(2l, "2", 2),
+                new Detail(3l, "3", 3),
+                new Detail(4l, "4", 4),
+                new Detail(5l, "5", 5),
+                new Detail(6l, "6", 6),
+                new Detail(7l, "7", 7),
+                new Detail(8l, "8", 8),
+                new Detail(9l, "9", 9),
+                new Detail(10l, "10", 10),
+                new Detail(65l, "65", 65)
+        );
+        List<Detail> reverseList = Lists.reverse(detailList);
+        Stack<Detail> stack = new Stack<>();
+        Integer lastIndex = getLastIndex(reverseList, 35, 2, true);
+        for (int i = 0; i < lastIndex; i++) {
 
+        }
+
+    }
+
+    private Integer getLastIndex(List<Detail> detailList, Integer needQty, Integer stackCapacity, boolean desc) {
+        int breakQty = needQty / stackCapacity;
+        //如果反序
+        if (desc) {
+            for (int i = 0; i < detailList.size(); i++) {
+                if (detailList.get(i).getQty() <= breakQty) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < detailList.size(); i++) {
+                if (detailList.get(i).getQty() >= breakQty) {
+                    return i;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private Integer getSumFromStack(Stack<Detail> stack) {
+        Integer sum = 0;
+        for (Detail detail : stack) {
+            sum += detail.getQty();
+        }
+        return sum;
+    }
 
 
 }

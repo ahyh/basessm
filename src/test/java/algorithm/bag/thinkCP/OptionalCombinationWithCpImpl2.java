@@ -75,7 +75,6 @@ public class OptionalCombinationWithCpImpl2 implements OptionalCombinationWithCp
         Integer sum = getSum(subList);
         Integer diff = sum - needQty;
         return true;
-
     }
 
     private Integer getSum(List<Detail> detailList) {

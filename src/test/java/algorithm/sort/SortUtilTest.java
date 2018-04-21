@@ -63,4 +63,29 @@ public class SortUtilTest {
         System.out.println("HeapSort use time:" + useTime);
 //        comparables.stream().forEach(System.out::println);
     }
+
+
+    /**
+     * 归并排序测试
+     */
+    @Test
+    public void testMergeSort() {
+        long startTime = System.currentTimeMillis();
+        List<AnyType> comparables = (List<AnyType>) SortUtil.mergeSort(list);
+        long useTime = System.currentTimeMillis() - startTime;
+        System.out.println("HeapSort use time:" + useTime);
+//        comparables.stream().forEach(System.out::println);
+    }
+
+    /**
+     * 归并排序测试
+     */
+    @Test
+    public void testQuickSort() {
+        long startTime = System.currentTimeMillis();
+        List<AnyType> comparables = (List<AnyType>) SortUtil.quickSort(list);
+        long useTime = System.currentTimeMillis() - startTime;
+        System.out.println("HeapSort use time:" + useTime);
+//        comparables.stream().forEach(System.out::println);
+    }
 }

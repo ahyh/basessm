@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class DateFormatTest extends Thread {
 
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
     public static void main(String[] args) {
         DateFormatTest test = new DateFormatTest();
         Thread t1 = new Thread(test, "t1");
@@ -25,10 +27,9 @@ public class DateFormatTest extends Thread {
 
     public void run() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             Date date = sdf.parse("20181128");
-            String s = sdf.format(date).substring(0, 6) + "01";
-            sleep((int) (2000 * Math.random()));
+            String s = sdf.format(date);
+           // sleep((int) (2000 * Math.random()));
             System.out.println(Thread.currentThread().getName() + s);
         } catch (Exception e) {
             e.printStackTrace();

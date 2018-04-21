@@ -2,7 +2,9 @@ package algorithm.sort;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.comparators.ComparableComparator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,6 +117,101 @@ public final class SortUtil {
             }
         }
         array[i] = temp;
+    }
+
+    /**
+     * 归并排序
+     *
+     * @param list
+     * @return
+     */
+    static List<? extends Comparable> mergeSort(List<? extends Comparable> list) {
+        Comparable[] array = checkAndReturnArray(list);
+        int len = array.length;
+        Comparable[] tempArray = new Comparable[len];
+        mergeSortArray(array, tempArray, 0, len - 1);
+        return Arrays.asList(array);
+    }
+
+    /**
+     * 归并排序
+     *
+     * @param array
+     * @param tempArray
+     * @param left
+     * @param right
+     */
+    private static void mergeSortArray(Comparable[] array, Comparable[] tempArray, int left, int right) {
+        if (left < right) {
+            int center = (left + right) / 2;
+            mergeSortArray(array, tempArray, left, center);
+            mergeSortArray(array, tempArray, center + 1, right);
+            merge(array, tempArray, left, center + 1, right);
+        }
+    }
+
+    /**
+     * 归并排序
+     *
+     * @param array
+     * @param tempArray
+     * @param leftPos
+     * @param rightPos
+     * @param rightEnd
+     */
+    private static void merge(Comparable[] array, Comparable[] tempArray, int leftPos, int rightPos, int rightEnd) {
+        int leftEnd = rightPos - 1;
+        int tmpPos = leftPos;
+        int numElements = rightEnd - leftPos + 1;
+        while (leftPos <= leftEnd && rightPos <= rightEnd) {
+            if (array[leftPos].compareTo(array[rightPos]) <= 0) {
+                tempArray[tmpPos++] = array[leftPos++];
+            } else {
+                tempArray[tmpPos++] = array[rightPos++];
+            }
+        }
+        while (leftPos <= leftEnd) {
+            tempArray[tmpPos++] = array[leftPos++];
+        }
+        while (rightPos <= rightEnd) {
+            tempArray[tmpPos++] = array[rightPos++];
+        }
+        for (int i = 0; i < numElements; i++, rightEnd--) {
+            array[rightEnd] = tempArray[rightEnd];
+        }
+    }
+
+    /**
+     * 快速排序
+     *
+     * @param list
+     * @return
+     */
+    static List<? extends Comparable> quickSort(List<? extends Comparable> list) {
+        if (list.size() > 1) {
+            List smaller = new ArrayList<>();
+            List same = new ArrayList<>();
+            List larger = new ArrayList<>();
+            Comparable comparable = list.get(list.size() / 2);
+            for (Comparable temp : list) {
+                if (temp.compareTo(comparable) < 0) {
+                    smaller.add(temp);
+                } else if (temp.compareTo(comparable) > 0) {
+                    larger.add(temp);
+                } else {
+                    same.add(temp);
+                }
+            }
+            quickSort(smaller);
+            quickSort(larger);
+
+            list.clear();
+            list.addAll(smaller);
+            list.addAll(same);
+            list.addAll(larger);
+            return list;
+        }
+        return null;
     }
 
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanhuan.yhssm.dao.BillDao">
+    <resultMap id="BaseResultMap" type="Bill">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="main_qty" property="mainQty" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (bill_no,status,main_qty,create_time,update_time,create_user,update_user,is_delete)
+    </sql>
+
+    <sql id="allColumns">
+        id,bill_no,status,main_qty,create_time,update_time,create_user,update_user,is_delete
+    </sql>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="Bill" useGeneratedKeys="true" keyProperty="id">
+        insert into bill
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{billNo,jdbcType=VARCHAR},
+        #{status,jdbcType=TINYINT},
+        #{mainQty,jdbcType=INTEGER},
+        now(),
+        now(),
+        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR},
+        0
+        )
+    </insert>
+
+    <update id="update" parameterType="Bill">
+        update bill
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="status != null">
+                    status = #{status,jdbcType=VARCHAR},
+                </if>
+                <if test="mainQty != null and mainQty != 0">
+                    main_qty = #{mainQty,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        update bill set is_delete = 1,update_time = now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="allColumns"/>
+        from bill
+        where
+        id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findBillList" resultMap="BaseResultMap" parameterType="BillCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from bill
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+</mapper>
