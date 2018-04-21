@@ -16,11 +16,11 @@
     </resultMap>
 
     <sql id="allColumnsWithOutId">
-        (sub_main_no,goods_no,goods_nanme,qty,price,create_time,update_time,create_user,update_user,is_delete)
+        (sub_main_no,goods_no,goods_name,qty,price,create_time,update_time,create_user,update_user,is_delete)
     </sql>
 
     <sql id="allColumns">
-        id,sub_main_no,goods_no,goods_nanme,qty,price,create_time,update_time,create_user,update_user,is_delete
+        id,sub_main_no,goods_no,goods_name,qty,price,create_time,update_time,create_user,update_user,is_delete
     </sql>
 
     <!-- 插入方法，插入后返回主键-->
@@ -89,11 +89,11 @@
     </select>
 
     <!-- 插入方法，插入后返回主键-->
-    <insert id="insertBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertBatch" parameterType="java.util.ArrayList" useGeneratedKeys="true" keyProperty="id">
         insert into bill_sub_detail
         <include refid="allColumnsWithOutId"/>
         values
-        <foreach collection="billSubDetailList" item="item" index="index" separator=",">
+        <foreach collection="list" item="item" index="index" separator=",">
             <trim prefix="(" suffix=")">
                 #{item.subMainNo,jdbcType=VARCHAR},
                 #{item.goodsNo,jdbcType=VARCHAR},

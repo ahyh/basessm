@@ -7,13 +7,13 @@ import com.yanhuan.yhssm.domain.pojo.BillSubMain;
 import com.yanhuan.yhssm.manager.BillSubMainManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
- * Created by yanhuan1 on 2018/4/21.
+ * BillSubMainManagerImpl
  */
 @Component
 public class BillSubMainManagerImpl implements BillSubMainManager {
@@ -29,8 +29,21 @@ public class BillSubMainManagerImpl implements BillSubMainManager {
     public Integer insert(BillSubMain billSubMain) {
         Preconditions.checkNotNull(billSubMain);
         Preconditions.checkArgument(CollectionUtils.isNotEmpty(billSubMain.getBillSubDetailList()));
-        Preconditions.checkArgument(billSubMainDao.insert(billSubMain) == 1,"Insert bill_sub_main failed!");
+        Preconditions.checkArgument(billSubMainDao.insert(billSubMain) == 1, "Insert bill_sub_main failed!");
+        Integer detailRecords = billSubDetailDao.insertBatch(billSubMain.getBillSubDetailList());
+        if (detailRecords != billSubMain.getBillSubDetailList().size()) {
+            throw new RuntimeException("Insert detail records is not equals list's size!");
+        }
+        return 1;
+    }
 
-        return null;
+    @Override
+    @Transactional
+    public Integer insertBatch(List<BillSubMain> billSubMainList) {
+        Preconditions.checkArgument(CollectionUtils.isNotEmpty(billSubMainList));
+        for (BillSubMain billSubMain : billSubMainList) {
+            insert(billSubMain);
+        }
+        return billSubMainList.size();
     }
 }

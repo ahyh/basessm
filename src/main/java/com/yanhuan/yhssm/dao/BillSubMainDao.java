@@ -1,7 +1,9 @@
 package com.yanhuan.yhssm.dao;
 
 import com.yanhuan.yhssm.domain.condition.BillSubMainCondition;
+import com.yanhuan.yhssm.domain.pojo.BillSubDetail;
 import com.yanhuan.yhssm.domain.pojo.BillSubMain;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +21,6 @@ public interface BillSubMainDao {
     BillSubMain get(Long id);
 
     List<BillSubMain> findBillSubMainList(BillSubMainCondition billSubMainCondition);
-    
+
+    Integer insertBatch(@Param("list") List<BillSubMain> billSubMainList);
 }

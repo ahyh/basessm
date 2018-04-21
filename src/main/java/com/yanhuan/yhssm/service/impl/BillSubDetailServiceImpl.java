@@ -30,6 +30,10 @@ public class BillSubDetailServiceImpl implements BillSubDetailService {
     @Override
     public Integer insertBatch(List<BillSubDetail> billSubDetailList) {
         Preconditions.checkNotNull(CollectionUtils.isNotEmpty(billSubDetailList), "billSubDetailList cannot be null!");
-        Preconditions.checkArgument(billSubDetailDao.insertBatch(billSubDetailList) == billSubDetailList.size(), "Insert billSubDetailList failed"+JSON);
+        Integer insertRecords = billSubDetailDao.insertBatch(billSubDetailList);
+        if (insertRecords != billSubDetailList.size()) {
+            throw new RuntimeException("Insert Records is not equals billSubDetailList's size!");
+        }
+        return billSubDetailList.size();
     }
 }

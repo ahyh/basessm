@@ -24,7 +24,7 @@
 
     <!-- 插入方法，插入后返回主键-->
     <insert id="insert" parameterType="BillSubMain" useGeneratedKeys="true" keyProperty="id">
-        insert into bill
+        insert into bill_sub_main
         <include refid="allColumnsWithOutId"/>
         values (
         #{billNo,jdbcType=VARCHAR},
@@ -85,5 +85,25 @@
             </choose>
         </where>
     </select>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insertBatch" parameterType="java.util.ArrayList" useGeneratedKeys="true" keyProperty="id">
+        insert into bill_sub_main
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")">
+                #{billNo,jdbcType=VARCHAR},
+                #{subMainNo,jdbcType=VARCHAR},
+                #{detailQty,jdbcType=INTEGER},
+                #{amount,jdbcType=DECIMAL},
+                now(),
+                now(),
+                #{createUser,jdbcType=VARCHAR},
+                #{createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+    </insert>
 
 </mapper>

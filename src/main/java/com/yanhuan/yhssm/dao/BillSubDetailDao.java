@@ -23,6 +23,6 @@ public interface BillSubDetailDao {
 
     List<BillSubDetail> findBillSubDetailList(BillSubDetailCondition billSubDetailCondition);
 
-    Integer insertBatch(@Param("billSubDetailList") List<BillSubDetail> billSubDetailList);
+    Integer insertBatch(@Param("list") List<BillSubDetail> billSubDetailList);
 
 }
