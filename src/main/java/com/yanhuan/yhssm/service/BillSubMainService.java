@@ -13,4 +13,6 @@ public interface BillSubMainService {
     Integer insert(BillSubMain billSubMain);
 
     Integer insertBatch(List<BillSubMain> billSubMainList);
+
+    BillSubMain getBillSubMainWithDetails(Long id);
 }

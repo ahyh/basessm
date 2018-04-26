@@ -59,7 +59,13 @@ public class BillSubMainServiceTest extends BaseTest {
     @Test
     public void testInsert() {
 
+    }
 
+    @Test
+    public void testGetMainWithDetails() {
+        Long id = 1l;
+        BillSubMain billSubMain = billSubMainService.getBillSubMainWithDetails(id);
+        System.out.println(billSubMain);
     }
 
 }

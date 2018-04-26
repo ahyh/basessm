@@ -92,9 +92,9 @@ public class BillServiceTest extends BaseTest {
     }
 
     @Test
-    public void testInsert() {
-
-
+    public void testGet() {
+        Bill billWithSubs = billService.getBillWithSubs(2l);
+        System.out.println(billWithSubs);
     }
 
 }

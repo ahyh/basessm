@@ -14,6 +14,33 @@
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
     </resultMap>
 
+    <!-- 主档加明细新 -->
+    <resultMap id="BillSubMainWithDetails" type="BillSubMain">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+        <result column="detail_qty" property="detailQty" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <collection property="billSubDetailList" column="detail_id" ofType="BillSubDetail">
+            <result column="detail_id" property="id" jdbcType="BIGINT"/>
+            <result column="sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+            <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+            <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+            <result column="qty" property="qty" jdbcType="INTEGER"/>
+            <result column="price" property="price" jdbcType="DECIMAL"/>
+            <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+            <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+            <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+            <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+            <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        </collection>
+    </resultMap>
+
     <sql id="allColumnsWithOutId">
         (bill_no,sub_main_no,detail_qty,amount,create_time,update_time,create_user,update_user,is_delete)
     </sql>
@@ -105,5 +132,36 @@
             </trim>
         </foreach>
     </insert>
+
+    <select id="getBillSubMainWithDetails" resultMap="BillSubMainWithDetails" parameterType="java.lang.Long">
+        select
+        bsm.id,
+        bsm.bill_no,
+        bsm.sub_main_no,
+        bsm.detail_qty,
+        bsm.amount,
+        bsm.create_time,
+        bsm.update_time,
+        bsm.create_user,
+        bsm.update_user,
+        bsm.is_delete,
+        bsd.id as detail_id,
+        bsd.sub_main_no,
+        bsd.goods_no,
+        bsd.goods_name,
+        bsd.qty,
+        bsd.price,
+        bsd.create_time,
+        bsd.update_time,
+        bsd.create_user,
+        bsd.update_user,
+        bsd.is_delete
+        from bill_sub_main bsm left join bill_sub_detail bsd on bsm.sub_main_no = bsd.sub_main_no
+        <where>
+            bsm.id = #{id,jdbcType=BIGINT}
+            and bsm.is_delete = 0
+            and bsd.is_delete = 0
+        </where>
+    </select>
 
 </mapper>

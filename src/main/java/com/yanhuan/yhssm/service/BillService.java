@@ -9,4 +9,6 @@ public interface BillService {
 
     Integer insert(Bill bill);
 
+    Bill getBillWithSubs(Long id);
+
 }

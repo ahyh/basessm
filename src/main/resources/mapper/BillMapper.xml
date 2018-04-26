@@ -13,6 +13,43 @@
         <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
     </resultMap>
 
+    <resultMap id="BillWithSub" type="Bill">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="main_qty" property="mainQty" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <collection property="billSubMainList" column="main_id" ofType="BillSubMain">
+            <id column="main_id" property="id" jdbcType="BIGINT"/>
+            <result column="main_bill_no" property="billNo" jdbcType="VARCHAR"/>
+            <result column="main_sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+            <result column="main_detail_qty" property="detailQty" jdbcType="INTEGER"/>
+            <result column="main_amount" property="amount" jdbcType="DECIMAL"/>
+            <result column="main_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+            <result column="main_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+            <result column="main_create_user" property="createUser" jdbcType="VARCHAR"/>
+            <result column="main_update_user" property="updateUser" jdbcType="VARCHAR"/>
+            <result column="main_is_delete" property="isDelete" jdbcType="TINYINT"/>
+            <collection property="billSubDetailList" column="detail_id" ofType="BillSubDetail">
+                <result column="detail_id" property="id" jdbcType="BIGINT"/>
+                <result column="detail_sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+                <result column="detail_goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+                <result column="detail_goods_name" property="goodsName" jdbcType="VARCHAR"/>
+                <result column="detail_qty" property="qty" jdbcType="INTEGER"/>
+                <result column="detail_price" property="price" jdbcType="DECIMAL"/>
+                <result column="detail_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+                <result column="detail_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+                <result column="detail_create_user" property="createUser" jdbcType="VARCHAR"/>
+                <result column="detail_update_user" property="updateUser" jdbcType="VARCHAR"/>
+                <result column="detail_is_delete" property="isDelete" jdbcType="TINYINT"/>
+            </collection>
+        </collection>
+    </resultMap>
+
     <sql id="allColumnsWithOutId">
         (bill_no,status,main_qty,create_time,update_time,create_user,update_user,is_delete)
     </sql>
@@ -81,6 +118,48 @@
                     and is_delete = 0
                 </otherwise>
             </choose>
+        </where>
+    </select>
+
+    <select id="getBillWithSubs" resultMap="BillWithSub" parameterType="java.lang.Long">
+        SELECT
+        b.id,
+        b.bill_no,
+        b.status,
+        b.main_qty,
+        b.create_time,
+        b.update_time,
+        b.create_user,
+        b.update_user,
+        b.is_delete,
+        bsm.id as main_id,
+        bsm.bill_no as main_bill_no,
+        bsm.sub_main_no as main_sub_main_no,
+        bsm.detail_qty as main_detail_qty,
+        bsm.amount as main_amount,
+        bsm.create_time as main_create_time,
+        bsm.update_time as main_update_time,
+        bsm.create_user as main_create_user,
+        bsm.update_user as main_update_user,
+        bsm.is_delete as main_is_delete,
+        bsd.id as detail_id,
+        bsd.sub_main_no as detail_sub_main_no,
+        bsd.goods_no as detail_goods_no,
+        bsd.goods_name as detail_goods_name,
+        bsd.qty as detail_qty,
+        bsd.price as detail_price,
+        bsd.create_time as detail_crete_time,
+        bsd.update_time as detail_update_time,
+        bsd.create_user as detail_create_user,
+        bsd.update_user as detail_update_user,
+        bsd.is_delete as detail_is_delete
+        FROM
+        bill b left join bill_sub_main bsm on b.bill_no = bsm.bill_no
+        left join bill_sub_detail bsd on bsm.sub_main_no = bsd.sub_main_no
+        <where>
+            b.id = #{id,jdbcType=BIGINT}
+            and bsm.is_delete = 0
+            and bsd.is_delete = 0
         </where>
     </select>
 

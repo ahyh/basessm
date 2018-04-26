@@ -22,5 +22,8 @@ public interface BillSubMainDao {
 
     List<BillSubMain> findBillSubMainList(BillSubMainCondition billSubMainCondition);
 
+    BillSubMain getBillSubMainWithDetails(Long id);
+
+
     Integer insertBatch(@Param("list") List<BillSubMain> billSubMainList);
 }

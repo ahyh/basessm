@@ -20,4 +20,6 @@ public interface BillDao {
 
     List<Bill> findBillList(BillCondition billCondition);
 
+    Bill getBillWithSubs(Long id);
+
 }
