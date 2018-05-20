@@ -57,6 +57,7 @@
         <mapper resource="mapper/BillMapper.xml"/>
         <mapper resource="mapper/BillSubMainMapper.xml"/>
         <mapper resource="mapper/BillSubDetailMapper.xml"/>
+        <mapper resource="mapper/TestInMapper.xml"/>
     </mappers>
 
 </configuration>

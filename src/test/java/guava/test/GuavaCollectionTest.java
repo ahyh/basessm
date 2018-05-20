@@ -55,12 +55,12 @@ public class GuavaCollectionTest {
      */
     @Test
     public void testGuavaCollection() {
-        Multimap<String, String> multimap = HashMultimap.create();
+        Multimap<String, Detail> multimap = HashMultimap.create();
         for (Detail detail : detailList) {
-            multimap.put(detail.getOrderNo(), detail.getGoodsNo());
+            multimap.put(detail.getOrderNo(), detail);
         }
-        Map<String, Collection<String>> map = multimap.asMap();
-        for (Map.Entry<String, Collection<String>> entry : map.entrySet()) {
+        Map<String, Collection<Detail>> map = multimap.asMap();
+        for (Map.Entry<String, Collection<Detail>> entry : map.entrySet()) {
             entry.getValue().stream().forEach(System.out::println);
         }
     }

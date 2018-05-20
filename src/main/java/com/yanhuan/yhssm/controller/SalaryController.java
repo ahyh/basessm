@@ -15,9 +15,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -35,8 +38,6 @@ public class SalaryController {
 
     private static Logger logger = LogManager.getLogger(SalaryController.class);
 
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-
     @Resource
     private SalaryService salaryService;
 
@@ -51,6 +52,7 @@ public class SalaryController {
         if (null != salary) {
             model.addAttribute("salary", salary);
         }
+        ExecutorService executorService = Executors.newCachedThreadPool();
         Callable<OrderMain> orderMainCallable = () -> {
             System.out.println("Enter callable");
             List<OrderMain> orderMainList = orderMainService.findOrderMainList(new OrderMainCondition());
@@ -97,6 +99,23 @@ public class SalaryController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "get/{id}")
+    public Salary getSalaryById(@PathVariable Long id, HttpServletRequest request) {
+        String routeRule = request.getHeader("routeRule");
+        if (!"6,6,80".equals(routeRule)) {
+            return null;
+        }
+        String source = request.getHeader("source");
+        if (!"yanhuan".equals(source)) {
+            return null;
+        }
+        SalaryCondition condition = new SalaryCondition();
+        condition.setId(id);
+        Salary salary = salaryService.getSalaryByCondition(condition);
+        return salary;
     }
 
 }
