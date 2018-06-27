@@ -77,7 +77,7 @@ public class SalaryServiceTest extends BaseTest {
     }
 
     @Test
-    public void testGet(){
+    public void testGet() {
         List<Salary> byDateSub = salaryService.findByDateSub(20);
         System.out.println();
     }
@@ -110,7 +110,7 @@ public class SalaryServiceTest extends BaseTest {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         Salary salary = new Salary();
         salary.setName("${name}$");
         salaryService.update(salary);
@@ -169,6 +169,21 @@ public class SalaryServiceTest extends BaseTest {
         }
         Integer integer = salaryService.batchInsertOrUpdate(salaryList);
         Assert.assertTrue(integer == 5);
+    }
+
+    @Test
+    public void testFindSalaryListBySalaryList() {
+        Salary s1 = new Salary();
+        s1.setId(12l);
+        s1.setCompany("jd");
+        Salary s2 = new Salary();
+        s2.setId(13l);
+        s2.setCompany("0.jd");
+        Salary s3 = new Salary();
+        s3.setId(14l);
+        s3.setCompany("jd");
+        List<Salary> salaryList = salaryService.findSalaryListBySalaryList(Lists.newArrayList(s1, s2, s3));
+        salaryList.stream().forEach(System.out::println);
     }
 
 }

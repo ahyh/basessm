@@ -29,6 +29,11 @@ public class CollectionUtilTest {
         Collection<Goods> goods = CollectionUtils.intersection(list1, list2);
         goods.stream().forEach(System.out::println);
     }
+
+    @Test
+    public void test2(){
+
+    }
 }
 
 class Goods {

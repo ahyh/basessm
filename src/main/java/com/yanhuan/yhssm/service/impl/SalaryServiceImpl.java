@@ -8,6 +8,7 @@ import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,6 +42,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    @Cacheable(value="baseCache",key="'getSalaryByCondition'")
     public Salary getSalaryByCondition(SalaryCondition condition) {
         Preconditions.checkArgument(condition != null, "condition cannot null!");
         return salaryDao.getSalaryByCondition(condition);
@@ -91,6 +93,11 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public List<Salary> findByDateSub(Integer days) {
         return salaryDao.findByDateSub(days);
+    }
+
+    @Override
+    public List<Salary> findSalaryListBySalaryList(List<Salary> salaryList) {
+        return salaryDao.findSalaryListBySalaryList(salaryList);
     }
 
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yanhuan.yhssm.dao.SalaryDao">
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+
     <resultMap id="BaseResultMap" type="Salary">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -89,7 +91,7 @@
         </where>
     </select>
 
-    <select id="getSalaryByCondition" resultMap="BaseResultMap" parameterType="SalaryCondition">
+    <select id="getSalaryByCondition" resultMap="BaseResultMap" parameterType="SalaryCondition" useCache="true">
         SELECT
         <include refid="allColumns"/>
         from salary
@@ -217,6 +219,21 @@
         <include refid="allColumns"/>
         from salary
         where create_time>=DATE_SUB(NOW(),INTERVAL #{days,jdbcType=INTEGER} DAY)
+    </select>
+
+    <select id="findSalaryListBySalaryList" parameterType="java.util.List" resultMap="BaseResultMap">
+        <trim suffixOverrides="union">
+            <foreach collection="list" item="item" index="index">
+                select
+                <include refid="allColumns"/>
+                from salary
+                <where>
+                    id = #{item.id,jdbcType=BIGINT}
+                    and company like "%"#{item.company,jdbcType=VARCHAR}"%"
+                </where>
+                union
+            </foreach>
+        </trim>
     </select>
 
 </mapper>

@@ -1,20 +1,14 @@
 package com.yanhuan.yhssm.test;
 
-import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Lists;
-import com.yanhuan.yhssm.domain.condition.SalaryCondition;
-import com.yanhuan.yhssm.domain.pojo.Salary;
+import com.yanhuan.yhssm.domain.condition.TestInCondition;
 import com.yanhuan.yhssm.domain.pojo.TestIn;
-import com.yanhuan.yhssm.service.SalaryService;
 import com.yanhuan.yhssm.service.TestInService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Test;
 import utils.test.GenerateUtils;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,5 +46,42 @@ public class TestInServiceTest extends BaseTest {
             testInService.batchInsert(testInList);
         }
     }
+
+    @Test
+    public void testUpdateAndInsert(){
+        TestIn testIn = new TestIn();
+        testIn.setId(6l);
+        testIn.setMainNo("PP1001-0-0-5");
+        testIn.setSlaveNo("QQQ1001-0-0-5");
+        testIn.setName("王慧");
+        testIn.setAge(5);
+        testIn.setUpdateUser("yhyhyh");
+        Boolean flag = testInService.updateAndInsert(testIn);
+        System.out.println(flag);
+    }
+
+    @Test
+    public void testDeleteAndInsert(){
+        TestIn testIn = new TestIn();
+        testIn.setId(6l);
+        testIn.setMainNo("YYY1001-0-0-5");
+        testIn.setSlaveNo("HHH1001-0-0-5");
+        testIn.setName("王慧");
+        testIn.setAge(26);
+        testIn.setUpdateUser("yhyhyh");
+        Boolean flag = testInService.deleteAndInsert(testIn);
+        System.out.println(flag);
+    }
+
+    @Test
+    public void testUpdateAndInsertBatch(){
+        TestInCondition condition = new TestInCondition();
+        condition.setAge(5);
+        Boolean aBoolean = testInService.updateAndInsertBatch(condition);
+    }
+
+
+
+
 
 }

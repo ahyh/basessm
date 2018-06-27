@@ -56,4 +56,69 @@
         </foreach>
     </insert>
 
+    <!-- 更新方法 -->
+    <update id="update" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        update test_in
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="mainNo != null and mainNo != ''">
+                    main_no = #{mainNo,jdbcType=VARCHAR},
+                </if>
+                <if test="slaveNo != null and slaveNo != ''">
+                    slave_no = #{slaveNo,jdbcType=VARCHAR},
+                </if>
+                <if test="name != null and name != ''">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="age != null and age != 0">
+                    age = #{age,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 更新方法 -->
+    <delete id="delete" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        delete from test_in
+        where id =#{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 更新方法 -->
+    <delete id="deleteByMainNoAndSalveNo" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        delete from test_in
+        where main_no = #{mainNo,jdbcType=VARCHAR} and slave_no = #{slaveNo,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 根据id查询 -->
+    <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="allColumns"/>
+        from test_in
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 批量查询 -->
+    <select id="findTestInListByCondition" parameterType="com.yanhuan.yhssm.domain.condition.TestInCondition"
+            resultMap="BaseResultMap">
+        select
+        <include refid="allColumns"/>
+        from test_in
+        <where>
+            <if test="mainNo != null and mainNo != ''">
+                and main_no = #{mainNo,jdbcType=VARCHAR}
+            </if>
+            <if test="slaveNo != null and slaveNo != ''">
+                and slave_no = #{slaveNo,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null and age != 0">
+                and age = #{age,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
 </mapper>

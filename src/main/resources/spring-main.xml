@@ -6,6 +6,7 @@
     <import resource="classpath:spring/spring-dao.xml"/>
     <import resource="classpath:spring/spring-mybatis.xml"/>
     <import resource="classpath:spring/spring-aop.xml"/>
+    <import resource="classpath:spring/spring-encache.xml"/>
     <import resource="classpath:spring/spring-mvc.xml"/>
 
 </beans>
