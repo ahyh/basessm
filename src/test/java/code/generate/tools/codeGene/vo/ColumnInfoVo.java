@@ -135,7 +135,6 @@ public class ColumnInfoVo implements Serializable {
         isPrimary = primary;
     }
 
-
     public Boolean getNullable() {
         return isNullable;
     }

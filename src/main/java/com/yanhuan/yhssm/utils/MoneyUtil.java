@@ -1,6 +1,7 @@
 package com.yanhuan.yhssm.utils;
 
 import com.google.common.base.Preconditions;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,7 +19,25 @@ public final class MoneyUtil {
     private static final String ZERO = "零";
     private static final String[] chineseNumArr = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖", "拾"};
     private static final String[] unitArr = {"零", "万", "亿", "万"};
+    private static final String[] arr = {"仟", "佰", "拾", ""};
 
+    public static BigDecimal chinese2Number(final String chineseMoney) {
+        Preconditions.checkArgument(StringUtils.isNotEmpty(chineseMoney),"MoneyUtil chinese2Number cannot null");
+        //先处理角和分
+        BigDecimal money = BigDecimal.ZERO;
+        if(chineseMoney.contains(moneyUnitArr[2])){
+
+        }
+
+        return money;
+    }
+
+
+    /**
+     * 数字转换为人民币大写金额
+     * @param money
+     * @return
+     */
     public static String number2Chinese(BigDecimal money) {
         Preconditions.checkNotNull(money);
         money = money.setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -71,7 +90,6 @@ public final class MoneyUtil {
 
     private static String minLeft2Chinese(String str) {
         String ch = "";
-        String[] arr = {"仟", "佰", "拾", ""};
         for (int i = 0; i < 4; i++) {
             if (!String.valueOf(str.charAt(i)).equals("0")) {
                 ch += chineseNumArr[Integer.parseInt(String.valueOf(str.charAt(i)))] + arr[i];

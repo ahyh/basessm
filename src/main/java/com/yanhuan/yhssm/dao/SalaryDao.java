@@ -43,4 +43,8 @@ public interface SalaryDao {
      * 物理删除
      */
     Integer deletePhysics(@Param("id") Long id);
+
+    List<Salary> findByDateSub(Integer days);
+
+    List<Salary> findSalaryListBySalaryList(@Param("list") List<Salary> salaryList);
 }

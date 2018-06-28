@@ -4,6 +4,7 @@ import com.yanhuan.yhssm.domain.BaseBussinessDomain;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 订单明细
@@ -89,6 +90,16 @@ public class OrderDetail extends BaseBussinessDomain {
      * 数量
      */
     private Integer qty;
+
+    private List<String> salaryList;
+
+    public List<String> getSalaryList() {
+        return salaryList;
+    }
+
+    public void setSalaryList(List<String> salaryList) {
+        this.salaryList = salaryList;
+    }
 
     public String getOrderNo() {
         return orderNo;

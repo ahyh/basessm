@@ -5,6 +5,8 @@ package java8.test;
  */
 public class Person {
 
+    private Long id;
+
     private Integer age;
 
     private String name;
@@ -15,7 +17,8 @@ public class Person {
 
     private Byte status;
 
-    public Person(Integer age, String name, Double salary, Boolean sex, Byte status) {
+    public Person(Long id,Integer age, String name, Double salary, Boolean sex, Byte status) {
+        this.id = id;
         this.age = age;
         this.name = name;
         this.salary = salary;
@@ -63,15 +66,23 @@ public class Person {
         this.status = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
-                "age=" + age +
+                "id=" + id +
+                ", age=" + age +
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
                 ", sex=" + sex +
                 ", status=" + status +
                 '}';
     }
-
 }

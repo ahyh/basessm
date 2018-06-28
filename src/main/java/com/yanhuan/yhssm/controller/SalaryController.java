@@ -13,12 +13,19 @@ import com.yanhuan.yhssm.service.SalaryService;
 import com.yanhuan.yhssm.utils.ExcelExportUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -35,8 +42,6 @@ public class SalaryController {
 
     private static Logger logger = LogManager.getLogger(SalaryController.class);
 
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-
     @Resource
     private SalaryService salaryService;
 
@@ -51,6 +56,7 @@ public class SalaryController {
         if (null != salary) {
             model.addAttribute("salary", salary);
         }
+        ExecutorService executorService = Executors.newCachedThreadPool();
         Callable<OrderMain> orderMainCallable = () -> {
             System.out.println("Enter callable");
             List<OrderMain> orderMainList = orderMainService.findOrderMainList(new OrderMainCondition());
@@ -97,6 +103,40 @@ public class SalaryController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "get/{id}")
+    public Salary getSalaryById(@PathVariable Long id, HttpServletRequest request) {
+        String routeRule = request.getHeader("routeRule");
+//        if (!"6,6,80".equals(routeRule)) {
+//            return null;
+//        }
+//        String source = request.getHeader("source");
+//        if (!"1".equals(source)) {
+//            return null;
+//        }
+//        try{
+//            BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+//            String line = null;
+//            StringBuilder sb = new StringBuilder();
+//            while((line = br.readLine())!=null){
+//                sb.append(line);
+//            }
+//            // 将资料解码
+//            String reqBody = sb.toString();
+//            String decode = URLDecoder.decode(reqBody, "GBK");
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+        
+        SalaryCondition condition = new SalaryCondition();
+        condition.setId(id);
+        Salary salary = salaryService.getSalaryByCondition(condition);
+        System.out.println(salary);
+        Salary salary1 = salaryService.getSalaryByCondition(condition);
+        System.out.println(salary1);
+        return salary;
     }
 
 }

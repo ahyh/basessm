@@ -85,6 +85,57 @@ CREATE TABLE `order_detail` (
 
 
 
+CREATE TABLE `bill` (
+  `id` bigint(12) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `bill_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '单号',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态',
+  `main_qty` int(8) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `create_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  `update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+
+CREATE TABLE `bill_sub_main` (
+  `id` bigint(12) NOT NULL COMMENT '主键',
+  `bill_no` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '单号',
+  `sub_main_no` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '子单号',
+  `detail_qty` int(6) DEFAULT NULL COMMENT '子单明细数量',
+  `amount` decimal(8,2) DEFAULT NULL COMMENT '金额',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `create_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL,
+  `update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '时间戳',
+  `is_delete` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+
+
+CREATE TABLE `bill_sub_detail` (
+  `id` bigint(12) NOT NULL AUTO_INCREMENT,
+  `sub_main_no` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_no` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `goods_name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` int(6) DEFAULT NULL,
+  `price` decimal(8,2) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+
+
+
+
 
 
 

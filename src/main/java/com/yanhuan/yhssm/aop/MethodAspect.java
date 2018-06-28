@@ -45,6 +45,7 @@ public class MethodAspect {
         String name = aClass.getName();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String url = request.getRequestURI();
+        System.out.print("url:" + url);
         log.error(name + url);
     }
 

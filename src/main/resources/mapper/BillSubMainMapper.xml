@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanhuan.yhssm.dao.BillSubMainDao">
+    <resultMap id="BaseResultMap" type="BillSubMain">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+        <result column="detail_qty" property="detailQty" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!-- 主档加明细新 -->
+    <resultMap id="BillSubMainWithDetails" type="BillSubMain">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+        <result column="detail_qty" property="detailQty" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        <collection property="billSubDetailList" column="detail_id" ofType="BillSubDetail">
+            <result column="detail_id" property="id" jdbcType="BIGINT"/>
+            <result column="sub_main_no" property="subMainNo" jdbcType="VARCHAR"/>
+            <result column="goods_no" property="goodsNo" jdbcType="VARCHAR"/>
+            <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+            <result column="qty" property="qty" jdbcType="INTEGER"/>
+            <result column="price" property="price" jdbcType="DECIMAL"/>
+            <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+            <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+            <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+            <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+            <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+        </collection>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (bill_no,sub_main_no,detail_qty,amount,create_time,update_time,create_user,update_user,is_delete)
+    </sql>
+
+    <sql id="allColumns">
+        id,bill_no,sub_main_no,detail_qty,amount,create_time,update_time,create_user,update_user,is_delete
+    </sql>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="BillSubMain" useGeneratedKeys="true" keyProperty="id">
+        insert into bill_sub_main
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{billNo,jdbcType=VARCHAR},
+        #{subMainNo,jdbcType=VARCHAR},
+        #{detailQty,jdbcType=INTEGER},
+        #{amount,jdbcType=DECIMAL},
+        now(),
+        now(),
+        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR},
+        0
+        )
+    </insert>
+
+    <update id="update" parameterType="Bill">
+        update bill_sub_main
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="detailQty != null and detailQty != 0">
+                    detail_qty = #{detailQty,jdbcType=INTEGER},
+                </if>
+                <if test="amount != null and amount != 0">
+                    amount = #{amount,jdbcType=DECIMAL},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        update bill_sub_main set is_delete = 1,update_time = now() where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="allColumns"/>
+        from bill_sub_main
+        where
+        id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findBillSubMainList" resultMap="BaseResultMap" parameterType="BillSubMainCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from bill_sub_main
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insertBatch" parameterType="java.util.ArrayList" useGeneratedKeys="true" keyProperty="id">
+        insert into bill_sub_main
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")">
+                #{billNo,jdbcType=VARCHAR},
+                #{subMainNo,jdbcType=VARCHAR},
+                #{detailQty,jdbcType=INTEGER},
+                #{amount,jdbcType=DECIMAL},
+                now(),
+                now(),
+                #{createUser,jdbcType=VARCHAR},
+                #{createUser,jdbcType=VARCHAR},
+                0
+            </trim>
+        </foreach>
+    </insert>
+
+    <select id="getBillSubMainWithDetails" resultMap="BillSubMainWithDetails" parameterType="java.lang.Long">
+        select
+        bsm.id,
+        bsm.bill_no,
+        bsm.sub_main_no,
+        bsm.detail_qty,
+        bsm.amount,
+        bsm.create_time,
+        bsm.update_time,
+        bsm.create_user,
+        bsm.update_user,
+        bsm.is_delete,
+        bsd.id as detail_id,
+        bsd.sub_main_no,
+        bsd.goods_no,
+        bsd.goods_name,
+        bsd.qty,
+        bsd.price,
+        bsd.create_time,
+        bsd.update_time,
+        bsd.create_user,
+        bsd.update_user,
+        bsd.is_delete
+        from bill_sub_main bsm left join bill_sub_detail bsd on bsm.sub_main_no = bsd.sub_main_no
+        <where>
+            bsm.id = #{id,jdbcType=BIGINT}
+            and bsm.is_delete = 0
+            and bsd.is_delete = 0
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanhuan.yhssm.dao.TestInDao">
+    <resultMap id="BaseResultMap" type="com.yanhuan.yhssm.domain.pojo.TestIn">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="main_no" property="mainNo" jdbcType="VARCHAR"/>
+        <result column="slave_no" property="slaveNo" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (main_no,slave_no,name,age,create_time,update_time,create_user,update_user)
+    </sql>
+
+    <sql id="allColumns">
+        id,main_no,slave_no,name,age,create_time,update_time,create_user,update_user
+    </sql>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn" useGeneratedKeys="true" keyProperty="id">
+        insert into test_in
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{mainNo,jdbcType=VARCHAR},
+        #{slaveNo,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{age,jdbcType=INTEGER},
+        now(),
+        now(),
+        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into test_in
+        <include refid="allColumnsWithOutId"/>
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")">
+                #{item.mainNo,jdbcType=VARCHAR},
+                #{item.slaveNo,jdbcType=VARCHAR},
+                #{item.name,jdbcType=VARCHAR},
+                #{item.age,jdbcType=INTEGER},
+                now(),
+                now(),
+                #{item.createUser,jdbcType=VARCHAR},
+                #{item.createUser,jdbcType=VARCHAR}
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 更新方法 -->
+    <update id="update" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        update test_in
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="mainNo != null and mainNo != ''">
+                    main_no = #{mainNo,jdbcType=VARCHAR},
+                </if>
+                <if test="slaveNo != null and slaveNo != ''">
+                    slave_no = #{slaveNo,jdbcType=VARCHAR},
+                </if>
+                <if test="name != null and name != ''">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="age != null and age != 0">
+                    age = #{age,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 更新方法 -->
+    <delete id="delete" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        delete from test_in
+        where id =#{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 更新方法 -->
+    <delete id="deleteByMainNoAndSalveNo" parameterType="com.yanhuan.yhssm.domain.pojo.TestIn">
+        delete from test_in
+        where main_no = #{mainNo,jdbcType=VARCHAR} and slave_no = #{slaveNo,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 根据id查询 -->
+    <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="allColumns"/>
+        from test_in
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 批量查询 -->
+    <select id="findTestInListByCondition" parameterType="com.yanhuan.yhssm.domain.condition.TestInCondition"
+            resultMap="BaseResultMap">
+        select
+        <include refid="allColumns"/>
+        from test_in
+        <where>
+            <if test="mainNo != null and mainNo != ''">
+                and main_no = #{mainNo,jdbcType=VARCHAR}
+            </if>
+            <if test="slaveNo != null and slaveNo != ''">
+                and slave_no = #{slaveNo,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null and age != 0">
+                and age = #{age,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+</mapper>
