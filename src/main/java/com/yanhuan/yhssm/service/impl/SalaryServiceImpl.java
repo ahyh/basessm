@@ -3,12 +3,13 @@ package com.yanhuan.yhssm.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.yanhuan.yhssm.annotations.ClassInvokeCount;
+import com.yanhuan.yhssm.annotations.MethodInvokeCount;
 import com.yanhuan.yhssm.dao.SalaryDao;
-import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import java.util.List;
  * Created by yanhuan1 on 2018/1/16.
  */
 @Service
+@ClassInvokeCount
 public class SalaryServiceImpl implements SalaryService {
 
     @Resource
@@ -41,8 +43,8 @@ public class SalaryServiceImpl implements SalaryService {
         return salaryDao.delete(id);
     }
 
+    @MethodInvokeCount
     @Override
-    @Cacheable(value="baseCache",key="'getSalaryByCondition'")
     public Salary getSalaryByCondition(SalaryCondition condition) {
         Preconditions.checkArgument(condition != null, "condition cannot null!");
         return salaryDao.getSalaryByCondition(condition);
