@@ -1,7 +1,7 @@
 package com.yanhuan.yhssm.dao;
 
-import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.Salary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -47,4 +47,12 @@ public interface SalaryDao {
     List<Salary> findByDateSub(Integer days);
 
     List<Salary> findSalaryListBySalaryList(@Param("list") List<Salary> salaryList);
+
+    /**
+     * 根据条件更新salary
+     *
+     * @param salaryCondition 更新条件
+     * @return 受影响的行数
+     */
+    Integer updateByCondition(SalaryCondition salaryCondition);
 }

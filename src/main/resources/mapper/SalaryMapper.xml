@@ -236,4 +236,21 @@
         </trim>
     </select>
 
+    <!-- 根据条件更新 -->
+    <update id="updateByCondition" parameterType="Salary">
+        update salary
+        <set>
+            update_time = now(),update_user=#{updateUser,jdbcType=VARCHAR},
+            <trim>
+                <if test="name != null and name != ''">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="salary != null">
+                    salary = #{salary,jdbcType=DECIMAL},
+                </if>
+            </trim>
+        </set>
+        where id =#{id,jdbcType=BIGINT}
+    </update>
+
 </mapper>

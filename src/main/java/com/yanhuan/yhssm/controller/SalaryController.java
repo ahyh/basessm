@@ -13,7 +13,6 @@ import com.yanhuan.yhssm.service.SalaryService;
 import com.yanhuan.yhssm.utils.ExcelExportUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URLDecoder;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -129,7 +126,7 @@ public class SalaryController {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-        
+
         SalaryCondition condition = new SalaryCondition();
         condition.setId(id);
         Salary salary = salaryService.getSalaryByCondition(condition);
@@ -138,5 +135,20 @@ public class SalaryController {
         System.out.println(salary1);
         return salary;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "update/{id}/{name}/{salary}")
+    public Salary updateSalaryById(@PathVariable("id") Long id, @PathVariable("name") String name,
+                                   @PathVariable("salary") BigDecimal salary) {
+        SalaryCondition updateSalary = new SalaryCondition();
+        updateSalary.setId(id);
+        updateSalary.setName(name);
+        updateSalary.setSalary(salary);
+        Integer update = salaryService.updateSalaryByCondition(updateSalary);
+        Salary salaryGet = salaryService.getSalaryByCondition(updateSalary);
+        System.out.println(salary);
+        return salaryGet;
+    }
+
 
 }

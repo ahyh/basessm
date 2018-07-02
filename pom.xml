@@ -21,7 +21,7 @@
         <log4j.version>2.3</log4j.version>
         <github.pagehelper.version>4.1.6</github.pagehelper.version>
         <disruptor.version>3.3.7</disruptor.version>
-        <guava.version>19.0</guava.version>
+        <guava.version>23.0</guava.version>
         <poi.version>3.15</poi.version>
         <freemarker.version>2.3.23</freemarker.version>
         <junit.version>4.12</junit.version>
@@ -305,6 +305,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
                     <!-- 设置JDK版本 -->
                     <source>1.8</source>

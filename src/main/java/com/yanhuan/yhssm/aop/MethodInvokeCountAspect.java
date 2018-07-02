@@ -19,10 +19,10 @@ public class MethodInvokeCountAspect {
 
     private Multiset<String> multiset = HashMultiset.create();
 
-    //定义为Controller的类将被拦截
-    @Pointcut("within(@com.yanhuan.yhssm.annotations.ClassInvokeCount *) ")
-    public void controllerAspect() {
-    }
+//    //定义为Controller的类将被拦截
+//    @Pointcut("within(@com.yanhuan.yhssm.annotations.ClassInvokeCount *) ")
+//    public void controllerAspect() {
+//    }
 
     //方法上加注解@UserRolePermission，将被拦截
     @Pointcut("@annotation(com.yanhuan.yhssm.annotations.MethodInvokeCount ))")

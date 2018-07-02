@@ -1,8 +1,8 @@
 package com.yanhuan.yhssm.service;
 
 import com.github.pagehelper.PageInfo;
-import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.Salary;
 
 import java.util.List;
 
@@ -46,4 +46,12 @@ public interface SalaryService {
     List<Salary> findByDateSub(Integer days);
 
     List<Salary> findSalaryListBySalaryList(List<Salary> salaryList);
+
+    /**
+     * 根据条件更新Salary
+     *
+     * @param condition 更新条件
+     * @return 受影响的行数
+     */
+    Integer updateSalaryByCondition(SalaryCondition condition);
 }
