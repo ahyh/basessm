@@ -57,11 +57,10 @@
             <AppenderRef ref="Console" />
         </AsyncLogger>
 
-        <!-- 配置记录器级别 -->
-        <!--<Root level="debug">-->
-            <!--&lt;!&ndash; 输出设置 &ndash;&gt;-->
-            <!--<AppenderRef ref="Console"/>-->
-        <!--</Root>-->
+        <Root level="debug">
+            <!-- 输出设置 -->
+            <AppenderRef ref="Console"/>
+        </Root>
     </Loggers>
 
 </Configuration>

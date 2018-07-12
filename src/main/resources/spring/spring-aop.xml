@@ -7,4 +7,13 @@
 
     <aop:aspectj-autoproxy/>
 
+    <bean id="methodInvokeSumAspect" class="com.yanhuan.yhssm.aop.MethodInvokeSumAspect"/>
+
+    <aop:config>
+        <aop:pointcut expression="@annotation(com.yanhuan.yhssm.annotations.MethodInvokeSum )))" id="mypoint"/>
+        <aop:aspect ref="methodInvokeSumAspect" order="1">
+            <aop:before method="before" pointcut-ref="mypoint"/>
+        </aop:aspect>
+    </aop:config>
+
 </beans>
