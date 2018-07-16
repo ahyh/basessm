@@ -3,8 +3,13 @@ package com.yanhuan.yhssm.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.yanhuan.yhssm.annotations.ClassInvokeCount;
 import com.yanhuan.yhssm.annotations.MethodInvokeCount;
+import com.yanhuan.yhssm.annotations.MethodInvokeDuration;
+import com.yanhuan.yhssm.annotations.MethodInvokeSum;
 import com.yanhuan.yhssm.dao.SalaryDao;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.domain.pojo.Salary;
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SalaryService服务：基本的增删改查方法
@@ -22,6 +28,16 @@ import java.util.List;
 @Service
 @ClassInvokeCount
 public class SalaryServiceImpl implements SalaryService {
+
+    private LoadingCache<SalaryCondition, Salary> cache = CacheBuilder.newBuilder()
+            .maximumSize(10000)
+            .expireAfterAccess(2, TimeUnit.MINUTES)
+            .build(new CacheLoader<SalaryCondition, Salary>() {
+                @Override
+                public Salary load(SalaryCondition key) throws Exception {
+                    return salaryDao.getSalaryByCondition(key);
+                }
+            });
 
     @Resource
     private SalaryDao salaryDao;
@@ -43,11 +59,19 @@ public class SalaryServiceImpl implements SalaryService {
         return salaryDao.delete(id);
     }
 
-    @MethodInvokeCount
+    @MethodInvokeDuration
+    @MethodInvokeSum
     @Override
     public Salary getSalaryByCondition(SalaryCondition condition) {
         Preconditions.checkArgument(condition != null, "condition cannot null!");
-        return salaryDao.getSalaryByCondition(condition);
+        Salary salary;
+        if (cache.getUnchecked(condition) != null) {
+            return cache.getUnchecked(condition);
+        } else {
+            salary = salaryDao.getSalaryByCondition(condition);
+            cache.put(condition, salary);
+        }
+        return salary;
     }
 
     @Override
@@ -65,7 +89,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Integer batchInsert(List<Salary> salaryList) {
-        if(CollectionUtils.isNotEmpty(salaryList)){
+        if (CollectionUtils.isNotEmpty(salaryList)) {
             return salaryDao.batchInsert(salaryList);
         }
         return 0;
@@ -73,7 +97,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Integer batchDelete(List<Long> idList) {
-        if(CollectionUtils.isNotEmpty(idList)){
+        if (CollectionUtils.isNotEmpty(idList)) {
             return salaryDao.batchDelete(idList);
         }
         return 0;
@@ -81,7 +105,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Integer batchInsertOrUpdate(List<Salary> salaryList) {
-        if(CollectionUtils.isNotEmpty(salaryList)){
+        if (CollectionUtils.isNotEmpty(salaryList)) {
             return salaryDao.batchInsertOrUpdate(salaryList);
         }
         return 0;

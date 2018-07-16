@@ -49,4 +49,18 @@ public class SalaryCondition extends BasePageCondition {
     public void setSex(Byte sex) {
         this.sex = sex;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SalaryCondition that = (SalaryCondition) o;
+        return this.getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = this.getId().hashCode();
+        return result;
+    }
 }

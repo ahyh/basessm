@@ -24,6 +24,6 @@ public class MethodInvokeSumAspect {
             map.put(methodName, 1);
         }
         logger.error(JSON.toJSON(map));
-        System.out.println("=====================================");
     }
+
 }

@@ -1,8 +1,6 @@
 package com.yanhuan.yhssm.service.impl;
 
 import com.yanhuan.yhssm.service.EmailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,8 +16,6 @@ import javax.mail.internet.MimeMessage;
  */
 @Service
 public class EmailServiceImpl implements EmailService {
-
-    private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 
     @Resource
     private JavaMailSender javaMailSender;
@@ -45,7 +41,7 @@ public class EmailServiceImpl implements EmailService {
             msgHelper.setText(htmlText, true);
             javaMailSender.send(mimeMessage);
         } catch (Exception e) {
-            logger.error("EmailServiceImpl sendEmail error:", e);
+            e.printStackTrace();
         }
     }
 }

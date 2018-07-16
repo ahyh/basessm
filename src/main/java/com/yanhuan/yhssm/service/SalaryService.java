@@ -1,8 +1,8 @@
 package com.yanhuan.yhssm.service;
 
 import com.github.pagehelper.PageInfo;
-import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.Salary;
 
 import java.util.List;
 
