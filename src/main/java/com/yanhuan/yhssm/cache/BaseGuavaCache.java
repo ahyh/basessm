@@ -3,8 +3,6 @@ package com.yanhuan.yhssm.cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,8 +12,6 @@ import java.util.concurrent.TimeUnit;
  * @author yanhuan1
  */
 public abstract class BaseGuavaCache<K, V> {
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 缓存空间大小
@@ -40,6 +36,12 @@ public abstract class BaseGuavaCache<K, V> {
                 }
             });
 
+    /**
+     * 从缓存中获取对象
+     *
+     * @param k key
+     * @return value
+     */
     public abstract V get(K k);
 
     public LoadingCache<K, V> getCache() {

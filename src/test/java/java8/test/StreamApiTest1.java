@@ -71,6 +71,9 @@ public class StreamApiTest1 {
 
     @Test
     public void testSkip() {
+        float a = 1.2f;
+        int b = (int)a;
+        System.out.println(b);
 
     }
 

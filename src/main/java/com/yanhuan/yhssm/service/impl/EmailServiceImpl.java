@@ -46,6 +46,7 @@ public class EmailServiceImpl implements EmailService {
             javaMailSender.send(mimeMessage);
         } catch (Exception e) {
             logger.error("EmailServiceImpl sendEmail error:", e);
+            throw new RuntimeException("发送邮件失败!");
         }
     }
 }
