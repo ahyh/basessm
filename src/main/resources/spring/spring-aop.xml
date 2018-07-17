@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <aop:aspectj-autoproxy/>
+
+    <bean id="methodInvokeSumAspect" class="com.yanhuan.yhssm.aop.MethodInvokeSumAspect"/>
+
+    <bean id="methodInvokeDurationAspect" class="com.yanhuan.yhssm.aop.MethodInvokeDurationAspect"/>
+
+    <aop:config>
+        <aop:pointcut expression="@annotation(com.yanhuan.yhssm.annotations.MethodInvokeSum )))" id="mypoint"/>
+        <aop:aspect ref="methodInvokeSumAspect" order="1">
+            <aop:before method="before" pointcut-ref="mypoint"/>
+        </aop:aspect>
+    </aop:config>
+
+    <aop:config>
+        <aop:pointcut id="durationPoint"
+                      expression="@annotation(com.yanhuan.yhssm.annotations.MethodInvokeDuration )))"/>
+        <aop:aspect ref="methodInvokeDurationAspect" order="2">
+            <aop:around method="around" pointcut-ref="durationPoint"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>

@@ -3,8 +3,13 @@ package com.yanhuan.yhssm.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.yanhuan.yhssm.annotations.ClassInvokeCount;
 import com.yanhuan.yhssm.annotations.MethodInvokeCount;
-import com.yanhuan.yhssm.cache.BaseGuavaCache;
+import com.yanhuan.yhssm.annotations.MethodInvokeDuration;
+import com.yanhuan.yhssm.annotations.MethodInvokeSum;
 import com.yanhuan.yhssm.dao.SalaryDao;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.domain.pojo.Salary;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SalaryService服务：基本的增删改查方法
@@ -26,6 +32,16 @@ public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> i
 
     private static final Logger logger = LoggerFactory.getLogger(SalaryServiceImpl.class);
 
+
+    private LoadingCache<SalaryCondition, Salary> cache = CacheBuilder.newBuilder()
+            .maximumSize(10000)
+            .expireAfterAccess(2, TimeUnit.MINUTES)
+            .build(new CacheLoader<SalaryCondition, Salary>() {
+                @Override
+                public Salary load(SalaryCondition key) throws Exception {
+                    return salaryDao.getSalaryByCondition(key);
+                }
+            });
 
     @Resource
     private SalaryDao salaryDao;
@@ -47,22 +63,19 @@ public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> i
         return salaryDao.delete(id);
     }
 
-    @MethodInvokeCount
+    @MethodInvokeDuration
+    @MethodInvokeSum
     @Override
     public Salary getSalaryByCondition(SalaryCondition condition) {
-        try {
-            Preconditions.checkArgument(condition != null, "condition cannot null!");
-//            if (getCache().getUnchecked(condition) != null) {
-            return getCache().getUnchecked(condition);
-//            } else {
-//                Salary salary = salaryDao.getSalaryByCondition(condition);
-//                getCache().put(condition, salary);
-//                return salary;
-//            }
-        } catch (Exception e) {
-            logger.error("SalaryServiceImpl getSalaryByCondition error:", e);
-            throw new RuntimeException("查询出错了");
+        Preconditions.checkArgument(condition != null, "condition cannot null!");
+        Salary salary;
+        if (cache.getUnchecked(condition) != null) {
+            return cache.getUnchecked(condition);
+        } else {
+            salary = salaryDao.getSalaryByCondition(condition);
+            cache.put(condition, salary);
         }
+        return salary;
     }
 
     @Override
