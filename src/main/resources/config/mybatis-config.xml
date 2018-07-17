@@ -35,6 +35,10 @@
         <typeAlias alias="BillCondition" type="com.yanhuan.yhssm.domain.condition.BillCondition"/>
         <typeAlias alias="BillSubMainCondition" type="com.yanhuan.yhssm.domain.condition.BillSubMainCondition"/>
         <typeAlias alias="BillSubDetailCondition" type="com.yanhuan.yhssm.domain.condition.BillSubDetailCondition"/>
+        <typeAlias alias="UserCondition" type="com.yanhuan.yhssm.domain.condition.UserCondition"/>
+        <typeAlias alias="UrlInvokeCondition" type="com.yanhuan.yhssm.domain.condition.UrlInvokeCondition"/>
+        <typeAlias alias="User" type="com.yanhuan.yhssm.domain.pojo.User"/>
+        <typeAlias alias="UrlInvoke" type="com.yanhuan.yhssm.domain.pojo.UrlInvoke"/>
     </typeAliases>
 
     <plugins>
@@ -59,6 +63,8 @@
         <mapper resource="mapper/BillSubMainMapper.xml"/>
         <mapper resource="mapper/BillSubDetailMapper.xml"/>
         <mapper resource="mapper/TestInMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/UrlInvokeMapper.xml"/>
     </mappers>
 
 </configuration>

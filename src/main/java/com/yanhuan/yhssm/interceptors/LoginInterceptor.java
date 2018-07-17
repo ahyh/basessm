@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         //不符合条件的，跳转到登录界面
-        httpServletRequest.getRequestDispatcher("/WEB-INF/login.jsp").forward(httpServletRequest, httpServletResponse);
+        httpServletRequest.getRequestDispatcher("/WEB-INF/page/login.jsp").forward(httpServletRequest, httpServletResponse);
         return false;
     }
 

@@ -1,15 +1,14 @@
-package com.yanhuan.yhssm.domain.pojo;
+package com.yanhuan.yhssm.domain.condition;
 
-import com.yanhuan.yhssm.domain.BaseDomain;
+import com.yanhuan.yhssm.domain.BasePageCondition;
 
 import java.util.Date;
 
 /**
- * url_invoke表映射对象
- *
- * @author yanhuan1
+ * 查询条件对象
+ * Created by yanhuan1 on 2018/1/16.
  */
-public class UrlInvoke extends BaseDomain {
+public class UrlInvokeCondition extends BasePageCondition {
 
     /**
      * url
@@ -22,9 +21,14 @@ public class UrlInvoke extends BaseDomain {
     private String username;
 
     /**
-     * 调用时间
+     * 开始调用时间
      */
-    private Date invokeTime;
+    private String invokeTimeStart;
+
+    /**
+     * 结束调用时间
+     */
+    private String invokeTimeEnd;
 
     /**
      * 执行时长，毫秒数
@@ -52,12 +56,20 @@ public class UrlInvoke extends BaseDomain {
         this.username = username;
     }
 
-    public Date getInvokeTime() {
-        return invokeTime;
+    public String getInvokeTimeStart() {
+        return invokeTimeStart;
     }
 
-    public void setInvokeTime(Date invokeTime) {
-        this.invokeTime = invokeTime;
+    public void setInvokeTimeStart(String invokeTimeStart) {
+        this.invokeTimeStart = invokeTimeStart;
+    }
+
+    public String getInvokeTimeEnd() {
+        return invokeTimeEnd;
+    }
+
+    public void setInvokeTimeEnd(String invokeTimeEnd) {
+        this.invokeTimeEnd = invokeTimeEnd;
     }
 
     public Integer getInvokeDuration() {

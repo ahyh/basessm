@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanhuan.yhssm.dao.UrlInvokeDao">
+
+    <resultMap id="BaseResultMap" type="UrlInvoke">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="invoke_time" property="invokeTime" jdbcType="TIMESTAMP"/>
+        <result column="invoke_duration" property="invokeDuration" jdbcType="INTEGER"/>
+        <result column="is_exception" property="isException" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (url,username,invoke_time,invoke_duration,is_exception,create_time,update_time,create_user,update_user,is_delete)
+    </sql>
+
+    <sql id="allColumns">
+        id,url,username,invoke_time,invoke_duration,is_exception,create_time,update_time,create_user,update_user,is_delete
+    </sql>
+
+    <!-- 插入方法，插入后返回主键-->
+    <insert id="insert" parameterType="UrlInvoke" useGeneratedKeys="true" keyProperty="id">
+        insert into url_invoke
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{url,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR},
+        #{invokeTime,jdbcType=TIMESTAMP},
+        #{invokeDuration,jdbcType=INTEGER},
+        #{isException,jdbcType=TINYINT},
+        now(),
+        now(),
+        #{createUser,jdbcType=VARCHAR},
+        #{createUser,jdbcType=VARCHAR},
+        0
+        )
+    </insert>
+
+    <select id="getUrlInvokeByCondition" resultMap="BaseResultMap" parameterType="UrlInvokeCondition" useCache="true">
+        SELECT
+        <include refid="allColumns"/>
+        from user
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+        limit 1
+    </select>
+
+    <select id="findUrlInvokeList" resultMap="BaseResultMap" parameterType="UrlInvokeCondition">
+        SELECT
+        <include refid="allColumns"/>
+        from url_invoke
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url,jdbcType=VARCHAR}
+            </if>
+            <if test="invokeTimeStart != null and invokeTimeStart != ''">
+                <![CDATA[and create_time >= #{invokeTimeStart,jdbcType=VARCHAR}]]>
+            </if>
+            <if test="invokeTimeEnd != null and invokeTimeEnd != ''">
+                <![CDATA[and create_time <= #{invokeTimeEnd,jdbcType=VARCHAR}]]>
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    and is_delete = #{isDelete,jdbcType=TINYINT}
+                </when>
+                <otherwise>
+                    and is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+</mapper>

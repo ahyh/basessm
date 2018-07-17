@@ -1,13 +1,12 @@
-package com.yanhuan.yhssm.domain.pojo;
+package com.yanhuan.yhssm.domain.condition;
 
-import com.yanhuan.yhssm.domain.BaseDomain;
+import com.yanhuan.yhssm.domain.BasePageCondition;
 
 /**
- * user表映射对象
- *
- * @author yanhuan1
+ * 查询条件对象
+ * Created by yanhuan1 on 2018/1/16.
  */
-public class User extends BaseDomain {
+public class UserCondition extends BasePageCondition {
 
     /**
      * 用户名
@@ -55,22 +54,6 @@ public class User extends BaseDomain {
         this.password = password;
     }
 
-    public Byte getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Byte userType) {
-        this.userType = userType;
-    }
-
-    public Byte getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Byte userStatus) {
-        this.userStatus = userStatus;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -85,5 +68,21 @@ public class User extends BaseDomain {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Byte getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Byte userType) {
+        this.userType = userType;
+    }
+
+    public Byte getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Byte userStatus) {
+        this.userStatus = userStatus;
     }
 }
