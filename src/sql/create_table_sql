@@ -131,7 +131,48 @@ CREATE TABLE `bill_sub_detail` (
   `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_delete` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `user` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `password` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '密码',
+  `user_type` TINYINT(2) NOT NULL DEFAULT '0' COMMENT '用户类型：0-普通用户，1-VIP用户，2-超级VIP用户',
+  `user_status` TINYINT(2) NOT NULL DEFAULT '0' COMMENT '用户状态：0-正常，1-锁定，2-冷冻',
+  `is_delete` TINYINT(2) NOT NULL DEFAULT '0' COMMENT '删除状态：0-正常，1-删除',
+  `create_user` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '创建人',
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '更新人',
+  `update_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `ts` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_username` (`username`),
+  KEY `unique_createtime` (`create_time`),
+  KEY `unique_updatetime` (`update_time`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+CREATE TABLE `url_invoke` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `url` VARCHAR(200) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户访问的url',
+  `username` VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户名',
+  `invoke_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '访问时间',
+  `invoke_duration` INT(6) DEFAULT NULL COMMENT '方法执行的毫秒数',
+  `is_exception` TINYINT(2) NOT NULL DEFAULT '0' COMMENT '是否有异常',
+  `create_user` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '创建人',
+  `create_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_user` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '更新人',
+  `update_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `is_delete` TINYINT(2) NOT NULL COMMENT '删除标记：0-正常，1-删除',
+  `ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`),
+  KEY `key_url` (`url`),
+  KEY `key_invoketime` (`invoke_time`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 
 
