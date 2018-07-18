@@ -7,7 +7,7 @@
         <result column="url" property="url" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="invoke_time" property="invokeTime" jdbcType="TIMESTAMP"/>
-        <result column="invoke_duration" property="invokeDuration" jdbcType="INTEGER"/>
+        <result column="invoke_duration" property="invokeDuration" jdbcType="BIGINT"/>
         <result column="is_exception" property="isException" jdbcType="TINYINT"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -32,7 +32,7 @@
         #{url,jdbcType=VARCHAR},
         #{username,jdbcType=VARCHAR},
         #{invokeTime,jdbcType=TIMESTAMP},
-        #{invokeDuration,jdbcType=INTEGER},
+        #{invokeDuration,jdbcType=BIGINT},
         #{isException,jdbcType=TINYINT},
         now(),
         now(),

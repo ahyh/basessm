@@ -64,6 +64,10 @@
             <mvc:mapping path="/**"/>
             <bean class="com.yanhuan.yhssm.interceptors.LoginInterceptor"></bean>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.yanhuan.yhssm.interceptors.UrlInvokeInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 </beans>

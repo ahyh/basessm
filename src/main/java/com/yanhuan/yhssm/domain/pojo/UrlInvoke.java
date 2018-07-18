@@ -29,7 +29,7 @@ public class UrlInvoke extends BaseDomain {
     /**
      * 执行时长，毫秒数
      */
-    private Integer invokeDuration;
+    private Long invokeDuration;
 
     /**
      * 是否有异常：1-异常，0-无异常
@@ -60,11 +60,11 @@ public class UrlInvoke extends BaseDomain {
         this.invokeTime = invokeTime;
     }
 
-    public Integer getInvokeDuration() {
+    public Long getInvokeDuration() {
         return invokeDuration;
     }
 
-    public void setInvokeDuration(Integer invokeDuration) {
+    public void setInvokeDuration(Long invokeDuration) {
         this.invokeDuration = invokeDuration;
     }
 
