@@ -85,6 +85,9 @@
             <if test="username != null and username != ''">
                 and username = #{username,jdbcType=VARCHAR}
             </if>
+            <if test="password != null and password != ''">
+                and password = #{password,jdbcType=VARCHAR}
+            </if>
             <if test="phone != null and phone != ''">
                 and phone = #{phone,jdbcType=VARCHAR}
             </if>
