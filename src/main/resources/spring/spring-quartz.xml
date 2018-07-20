@@ -10,7 +10,7 @@
     </bean>
 
     <bean id="firstComplexJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        <property name="jobClass" value="com.yanhuan.worker.job.FirstSchedulerJob"/>
+        <property name="jobClass" value="com.yanhuan.yhssm.quartz.FirstSchedulerJob"/>
         <property name="durability" value="true"/>
         <property name="jobDataMap">
             <map>
@@ -23,7 +23,6 @@
         <property name="jobDetail" ref="simpleJobDetail"/>
         <property name="startDelay" value="1000"/>
         <property name="repeatInterval" value="2000"/>
-
     </bean>
 
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">

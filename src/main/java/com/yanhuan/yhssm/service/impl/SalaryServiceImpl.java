@@ -6,8 +6,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.yanhuan.yhssm.annotations.ClassInvokeCount;
-import com.yanhuan.yhssm.annotations.MethodInvokeCount;
 import com.yanhuan.yhssm.annotations.MethodInvokeDuration;
 import com.yanhuan.yhssm.annotations.MethodInvokeSum;
 import com.yanhuan.yhssm.cache.BaseGuavaCache;
@@ -16,8 +14,8 @@ import com.yanhuan.yhssm.domain.condition.SalaryCondition;
 import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,8 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> implements SalaryService {
 
-    private static final Logger logger = LogManager.getLogger(SalaryServiceImpl.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(SalaryServiceImpl.class);
 
     private LoadingCache<SalaryCondition, Salary> cache = CacheBuilder.newBuilder()
             .maximumSize(10000)
@@ -69,6 +66,7 @@ public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> i
     @Override
     public Salary getSalaryByCondition(SalaryCondition condition) {
         Preconditions.checkArgument(condition != null, "condition cannot null!");
+        logger.error("测试slf4j,id:{},name:{}", condition.getId(), condition.getName());
         Salary salary;
         if (cache.getUnchecked(condition) != null) {
             return cache.getUnchecked(condition);
