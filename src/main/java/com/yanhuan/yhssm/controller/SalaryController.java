@@ -11,14 +11,13 @@ import com.yanhuan.yhssm.domain.pojo.Salary;
 import com.yanhuan.yhssm.service.OrderMainService;
 import com.yanhuan.yhssm.service.SalaryService;
 import com.yanhuan.yhssm.utils.ExcelExportUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +31,14 @@ import java.util.concurrent.Future;
 /**
  * Salary控制器
  * Created by yanhuan1 on 2018/1/16.
+ *
+ * @author yanhuan1
  */
 @Controller
 @RequestMapping("salary")
 public class SalaryController {
 
-    private static Logger logger = LogManager.getLogger(SalaryController.class);
+    private static Logger logger = LoggerFactory.getLogger(SalaryController.class);
 
     @Resource
     private SalaryService salaryService;
@@ -48,7 +49,7 @@ public class SalaryController {
     @RequestMapping(value = "gotoSalary")
     @MethodAnnotation
     public String gotoSalary(Model model, @PropAnnotation SalaryCondition condition) {
-        logger.error(JSON.toJSON(condition));
+        logger.error("SalaryController gotoSalary condition:{}",JSON.toJSON(condition));
         Salary salary = salaryService.getSalaryByCondition(condition);
         if (null != salary) {
             model.addAttribute("salary", salary);
@@ -130,8 +131,9 @@ public class SalaryController {
         SalaryCondition condition = new SalaryCondition();
         condition.setId(id);
         Salary salary = salaryService.getSalaryByCondition(condition);
-        System.out.println(salary);
+        logger.info("SalaryController getSalaryById salary:{}",JSON.toJSON(salary));
         Salary salary1 = salaryService.getSalaryByCondition(condition);
+        logger.debug("SalaryController getSalaryById salary:{}",JSON.toJSON(salary1));
         System.out.println(salary1);
         return salary;
     }
