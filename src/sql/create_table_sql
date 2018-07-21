@@ -175,7 +175,72 @@ CREATE TABLE `url_invoke` (
 
 
 
+CREATE TABLE `college` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL COMMENT '学院名称',
+  `college_type` TINYINT(2) NOT NULL COMMENT '学院等级：0-普通，1-初级，2-中级，3-高级',
+  `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `create_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '创建人',
+  `update_time` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `update_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `is_delete` TINYINT(2) DEFAULT NULL COMMENT '删除标识：0-正常，1-删除',
+  `ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+CREATE TABLE `course` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL COMMENT '课程名称',
+  `teacher_id` TINYINT(2) NOT NULL COMMENT '老师id',
+  `course_time` DATETIME DEFAULT NULL COMMENT '开课时间',
+  `class_room` VARCHAR(50) DEFAULT NULL COMMENT '开课教室',
+  `class_duration` INT(4) DEFAULT NULL COMMENT '学时',
+  `course_type` INT(4) DEFAULT NULL COMMENT '课程类型',
+  `college_id` INT(6) DEFAULT NULL COMMENT '所属院系',
+  `score` INT(4) DEFAULT NULL COMMENT '学分',
+  `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `create_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '创建人',
+  `update_time` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `update_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `is_delete` TINYINT(2) DEFAULT NULL COMMENT '删除标识：0-正常，1-删除',
+  `ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `teacher` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `teacher_no` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL COMMENT '教师编号',
+  `teacher_name` VARCHAR(100) NOT NULL COMMENT '教师名称',
+  `sex` TINYINT(2) DEFAULT NULL COMMENT '性别:0-男，1-女',
+  `degree` TINYINT(2) DEFAULT NULL COMMENT '学历：0-本科，1-硕士，2-博士',
+  `title` VARCHAR(255) DEFAULT NULL COMMENT '职称：0-讲师，1-副教授，2-教授，3-高级教授',
+  `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `create_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '创建人',
+  `update_time` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `update_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `is_delete` TINYINT(2) DEFAULT NULL COMMENT '删除标识：0-正常，1-删除',
+  `ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `student` (
+  `id` BIGINT(13) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `student_no` VARCHAR(150) COLLATE utf8_unicode_ci NOT NULL COMMENT '学号',
+  `student_name` VARCHAR(100) NOT NULL COMMENT '姓名',
+  `sex` TINYINT(2) DEFAULT NULL COMMENT '性别:0-男，1-女',
+  `birthday` DATETIME DEFAULT NULL COMMENT '出生日期',
+  `college_id` INT(6) DEFAULT NULL COMMENT '学院id',
+  `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `create_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '创建人',
+  `update_time` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `update_user` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `is_delete` TINYINT(2) DEFAULT NULL COMMENT '删除标识：0-正常，1-删除',
+  `ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
