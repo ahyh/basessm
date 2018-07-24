@@ -39,6 +39,35 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!-- listener配置 -->
+    <listener>
+        <listener-class>com.yanhuan.yhssm.listener.MyRequestListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.yanhuan.yhssm.listener.MyServletContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.yanhuan.yhssm.listener.MySessionListener</listener-class>
+    </listener>
+
+    <!-- Filter配置 -->
+    <filter>
+        <filter-name>myFilter1</filter-name>
+        <filter-class>com.yanhuan.yhssm.filter.MyFilter1</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>myFilter1</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>myFilter2</filter-name>
+        <filter-class>com.yanhuan.yhssm.filter.MyFilter2</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>myFilter2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
     <welcome-file-list>
