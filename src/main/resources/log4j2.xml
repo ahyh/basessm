@@ -34,6 +34,15 @@
             <DefaultRolloverStrategy max="${business_log_file_count}"/>
         </RollingRandomAccessFile>
 
+        <RollingRandomAccessFile name="TraceAOP" fileName="${log_home}/aop-trace.log"
+                                 filePattern="${log_home}/BaseAOP-Trace-%i.log.gz">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${business_log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${business_log_file_count}"/>
+        </RollingRandomAccessFile>
+
         <RollingRandomAccessFile name="BaseAOP" fileName="${log_home}/aop.log"
                                  filePattern="${log_home}/BaseAOP-%i.log.gz">
             <PatternLayout pattern="${patternLayout}"/>
@@ -42,6 +51,7 @@
             </Policies>
             <DefaultRolloverStrategy max="${business_log_file_count}"/>
         </RollingRandomAccessFile>
+
     </Appenders>
 
     <Loggers>
@@ -64,6 +74,10 @@
         <!-- 将调用mybatis的dao的包填入此处即可 -->
         <AsyncLogger name="com.yanhuan.yhssm.dao" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="com.yanhuan.yhssm.aop.MethodInvokeTraceAspect" level="DEBUG" additivity="false">
+            <AppenderRef ref="TraceAOP"/>
         </AsyncLogger>
 
         <AsyncLogger name="com.yanhuan.yhssm.aop" level="DEBUG" additivity="false">

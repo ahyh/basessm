@@ -1,15 +1,16 @@
 package com.yanhuan.yhssm.aop;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 方法执行时间AOP统计
  */
 public class MethodInvokeDurationAspect {
 
-    private static final Logger logger = LogManager.getLogger(MethodInvokeDurationAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(MethodInvokeDurationAspect.class);
 
     /**
      * 环绕通知用于统计方法的执行时间

@@ -3,6 +3,7 @@ package com.yanhuan.yhssm.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.yanhuan.yhssm.annotations.MethodInvokeTrace;
 import com.yanhuan.yhssm.dao.OrderMainDao;
 import com.yanhuan.yhssm.domain.condition.OrderMainCondition;
 import com.yanhuan.yhssm.domain.pojo.OrderMain;
@@ -48,6 +49,7 @@ public class OrderMainServiceImpl implements OrderMainService {
         return false;
     }
 
+    @MethodInvokeTrace
     @Override
     public OrderMain get(Long id) {
         return orderMainDao.get(id);
