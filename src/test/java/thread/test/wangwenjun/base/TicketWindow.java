@@ -18,22 +18,23 @@ public class TicketWindow implements Runnable {
 
     public void run() {
         while (index <= MAX) {
-            System.out.println("柜台:" + name + "当前的号码是:" + index++);
-            notify();
-            try {
-                TimeUnit.SECONDS.sleep(1);
-                wait();
-            } catch (Exception e) {
-                e.printStackTrace();
+            synchronized (lock) {
+                lock.notify();
+                System.out.println(Thread.currentThread() + "的号码是:" + index++);
+                try {
+                    lock.wait();
+                    TimeUnit.MILLISECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-
         }
     }
 
 
     public static void main(String[] args) {
-        TicketWindow ticketWindow = new TicketWindow("1号");
-        new Thread(ticketWindow, "1").start();
-        new Thread(ticketWindow, "2").start();
+        TicketWindow ticketWindow = new TicketWindow("guitai");
+        new Thread(ticketWindow, "2号").start();
+        new Thread(ticketWindow, "1号").start();
     }
 }

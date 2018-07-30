@@ -8,10 +8,13 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.yanhuan.yhssm.annotations.MethodInvokeDuration;
 import com.yanhuan.yhssm.annotations.MethodInvokeSum;
+import com.yanhuan.yhssm.annotations.MethodInvokeTrace;
 import com.yanhuan.yhssm.cache.BaseGuavaCache;
 import com.yanhuan.yhssm.dao.SalaryDao;
 import com.yanhuan.yhssm.domain.condition.SalaryCondition;
+import com.yanhuan.yhssm.domain.pojo.OrderMain;
 import com.yanhuan.yhssm.domain.pojo.Salary;
+import com.yanhuan.yhssm.service.OrderMainService;
 import com.yanhuan.yhssm.service.SalaryService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -44,6 +47,9 @@ public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> i
     @Resource
     private SalaryDao salaryDao;
 
+    @Resource
+    private OrderMainService orderMainService;
+
     @Override
     public Integer insert(Salary salary) {
         Preconditions.checkNotNull(salary);
@@ -61,13 +67,16 @@ public class SalaryServiceImpl extends BaseGuavaCache<SalaryCondition, Salary> i
         return salaryDao.delete(id);
     }
 
-    @MethodInvokeDuration
-    @MethodInvokeSum
+    @MethodInvokeTrace
+//    @MethodInvokeDuration
+//    @MethodInvokeSum
     @Override
     public Salary getSalaryByCondition(SalaryCondition condition) {
         Preconditions.checkArgument(condition != null, "condition cannot null!");
         logger.error("测试slf4j,id:{},name:{}", condition.getId(), condition.getName());
         Salary salary;
+        OrderMain orderMain = orderMainService.get(9L);
+        logger.error(orderMain.toString());
         if (cache.getUnchecked(condition) != null) {
             return cache.getUnchecked(condition);
         } else {
