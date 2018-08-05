@@ -28,6 +28,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static java.util.concurrent.Executors.*;
+
 /**
  * Salary控制器
  * Created by yanhuan1 on 2018/1/16.
@@ -54,7 +56,7 @@ public class SalaryController {
         if (null != salary) {
             model.addAttribute("salary", salary);
         }
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = newCachedThreadPool();
         Callable<OrderMain> orderMainCallable = () -> {
             System.out.println("Enter callable");
             List<OrderMain> orderMainList = orderMainService.findOrderMainList(new OrderMainCondition());
