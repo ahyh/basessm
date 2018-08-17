@@ -52,6 +52,7 @@
             <property name="supportMethodsArguments" value="false"/>
             <property name="returnPageInfo" value="none"/>
         </plugin>
+        <plugin interceptor="com.yanhuan.yhssm.mybatis.interceptors.SQLWhereInterceptor"/>
     </plugins>
 
     <!-- mapper文件 -->
