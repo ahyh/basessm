@@ -53,6 +53,7 @@
             <property name="returnPageInfo" value="none"/>
         </plugin>
         <plugin interceptor="com.yanhuan.yhssm.mybatis.interceptors.SQLWhereInterceptor"/>
+        <plugin interceptor="com.yanhuan.yhssm.mybatis.interceptors.EncrypInterceptor"/>
     </plugins>
 
     <!-- mapper文件 -->
