@@ -5,6 +5,8 @@ import com.yanhuan.yhssm.domain.pojo.User;
 
 /**
  * user服务
+ *
+ * @author yanhuan1
  */
 public interface UserService {
 

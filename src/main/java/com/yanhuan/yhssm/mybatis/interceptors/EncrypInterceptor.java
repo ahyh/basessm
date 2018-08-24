@@ -85,6 +85,7 @@ public class EncrypInterceptor implements Interceptor {
      * @throws Exception
      */
     private void setEncryptFieldValue(Object object, boolean encodeFlag) throws Exception {
+        //只能拿到自己本类中的Field,不能拿到父类中的Field
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
             Annotation[] annotations = field.getAnnotations();
