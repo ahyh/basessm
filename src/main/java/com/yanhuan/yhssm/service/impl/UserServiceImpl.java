@@ -15,9 +15,19 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private com.yanhuan.provider.interf.UserService dubboUserService;
+
     @Override
     public Integer insert(User user) {
         Preconditions.checkNotNull(user);
+        com.yanhuan.provider.domain.pojo.User pUser = new com.yanhuan.provider.domain.pojo.User();
+        pUser.setUsername(user.getUsername());
+        pUser.setPassword(user.getPassword());
+        pUser.setAddress("安徽省合肥市");
+        pUser.setPhone(user.getPhone());
+        pUser.setCreateUser(user.getCreateUser());
+        dubboUserService.insert(pUser);
         return userDao.insert(user);
     }
 

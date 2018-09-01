@@ -10,5 +10,6 @@
     <import resource="classpath:spring/spring-mvc.xml"/>
     <import resource="classpath:spring/spring-mail.xml"/>
     <import resource="classpath:spring/spring-quartz.xml"/>
+    <import resource="classpath:spring/dubbo-consumer.xml"/>
 
 </beans>
