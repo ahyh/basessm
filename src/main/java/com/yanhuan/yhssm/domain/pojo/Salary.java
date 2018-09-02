@@ -1,12 +1,14 @@
 package com.yanhuan.yhssm.domain.pojo;
 
+import com.yanhuan.yhssm.annotations.EncrypAnnotation;
 import com.yanhuan.yhssm.domain.BaseDomain;
 
 import java.math.BigDecimal;
 
 /**
- * pojo
- * Created by yanhuan1 on 2018/1/16.
+ * pojo:薪水类
+ *
+ * @author yanhuan1
  */
 public class Salary extends BaseDomain {
 
@@ -16,8 +18,13 @@ public class Salary extends BaseDomain {
 
     private Byte sex;
 
+    /**
+     * 公司需要加密
+     */
+    @EncrypAnnotation
     private String company;
 
+    @EncrypAnnotation
     private BigDecimal salary;
 
     public String getName() {

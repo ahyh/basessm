@@ -6,6 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class OptionalStrategy implements OptionalCombination<Detail> {
         Preconditions.checkArgument(needQty != null, "需求数量不能为空");
         Preconditions.checkArgument(needQty > 0, "需求数量必须大于0");
         //按数量排序
-        Collections.sort(detailList, (left, right) -> left.getQty().compareTo(right.getQty()));
+        Collections.sort(detailList, Comparator.comparing(Detail::getQty));
         if (needQty <= detailList.get(0).getQty()) {
             return Lists.newArrayList(detailList.get(0));
         }

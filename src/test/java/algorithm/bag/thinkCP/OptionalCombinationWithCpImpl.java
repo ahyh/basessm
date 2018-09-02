@@ -6,6 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class OptionalCombinationWithCpImpl implements OptionalCombinationWithCp<
     public List<Detail> findOptional(List<Detail> detailList, Integer needQty, Integer cpQty) {
         checkParam(detailList, needQty, cpQty);
         //按数量排序
-        Collections.sort(detailList, (left, right) -> left.getQty().compareTo(right.getQty()));
+        Collections.sort(detailList, Comparator.comparing(Detail::getQty));
         //1-需求数量小于零拣区,不从detailList中出
         List<Detail> newList = new ArrayList<>();
         if (needQty < cpQty) {

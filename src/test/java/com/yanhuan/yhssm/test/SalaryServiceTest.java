@@ -63,10 +63,10 @@ public class SalaryServiceTest extends BaseTest {
     @Test
     public void testInsert() {
         Salary salary = new Salary();
-        salary.setName("$$$${name}$$$");
-        salary.setAge(31);
+        salary.setName("liuan");
+        salary.setAge(26);
         salary.setSex((byte) 1);
-        salary.setCompany("jd.com");
+        salary.setCompany("jjjjjjjdddddddd....com");
         salary.setSalary(new BigDecimal(22222));
         salary.setCreateTime(new Date());
         salary.setUpdateTime(new Date());
@@ -74,6 +74,17 @@ public class SalaryServiceTest extends BaseTest {
         salary.setUpdateUser("yanhuan");
         Integer insert = salaryService.insert(salary);
         System.out.println(insert);
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetById(){
+        SalaryCondition condition = new SalaryCondition();
+        condition.setId(505919l);
+        Salary salaryByCondition = salaryService.getSalaryByCondition(condition);
+        System.out.println(salaryByCondition.getCompany());
     }
 
     @Test

@@ -17,7 +17,6 @@
         <setting name="autoMappingBehavior" value="PARTIAL"/>
         <setting name="defaultExecutorType" value="SIMPLE"/>
         <setting name="defaultStatementTimeout" value="25000"/>
-        <setting name="cacheEnabled" value="false"/>
         <setting name="defaultExecutorType" value="REUSE"/>
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
@@ -52,6 +51,8 @@
             <property name="supportMethodsArguments" value="false"/>
             <property name="returnPageInfo" value="none"/>
         </plugin>
+        <plugin interceptor="com.yanhuan.yhssm.mybatis.interceptors.SQLWhereInterceptor"/>
+        <plugin interceptor="com.yanhuan.yhssm.mybatis.interceptors.EncrypInterceptor"/>
     </plugins>
 
     <!-- mapper文件 -->

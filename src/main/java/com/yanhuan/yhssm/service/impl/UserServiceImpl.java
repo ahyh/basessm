@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * User服务实现类
+ *
+ * @author yanhuan1
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -46,6 +51,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByCondition(UserCondition condition) {
         Preconditions.checkNotNull(condition);
+        /**
+         * 测试Mybatis的缓存机制是否有效，有效的话只会刷一次数据库
+         */
+        User user = userDao.getUserByCondition(condition);
         return userDao.getUserByCondition(condition);
     }
 }

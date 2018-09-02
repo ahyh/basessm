@@ -1,9 +1,11 @@
 package com.yanhuan.yhssm.test;
 
+import com.yanhuan.yhssm.domain.condition.UserCondition;
 import com.yanhuan.yhssm.domain.pojo.User;
 import com.yanhuan.yhssm.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -29,6 +31,18 @@ public class UserServiceTest extends BaseTest {
         user.setUserStatus((byte)0);
         user.setCreateUser("yanhuan");
         userService.insert(user);
+    }
+
+    /**
+     * 测试Mybatis的一级缓存机制
+     * 在service服务中调用了
+     */
+    @Test
+    public void testGetByCondition(){
+        UserCondition condition = new UserCondition();
+        condition.setId(1L);
+        User userByCondition = userService.getUserByCondition(condition);
+        Assert.assertTrue(userByCondition != null);
     }
 
 }
