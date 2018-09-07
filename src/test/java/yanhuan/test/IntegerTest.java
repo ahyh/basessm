@@ -36,4 +36,10 @@ public class IntegerTest {
     public void testLinkedMap(){
         Map<String,Object> map = new LinkedHashMap<>();
     }
+
+    @Test
+    public void testNull(){
+        Integer i = null;
+        System.out.println(i != null && i == 1);
+    }
 }

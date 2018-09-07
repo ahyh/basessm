@@ -1,5 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <html>
+<script type="text/javascript" src="/statics/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="/statics/importFile.js"></script>
+<script type="text/javascript" src="/statics/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/statics/loading.js"></script>
+<script type="text/javascript" src="/statics/bootstrap.min.js"></script>
+<script type="text/javascript" src="/statics/arrayUtil.js"></script>
+<script type="text/javascript" src="/statics/mapUtil.js"></script>
+<script type="text/javascript" src="/statics/jquery.form.js"></script>
 <body>
 <h1 style="color: red">Hello World!</h1>
 
@@ -19,16 +27,45 @@
 
 <button id="button">点我</button>
 
-<script type="text/javascript" src="/statics/jquery-1.7.2.js"></script>
+<button id="excelUploadBtn">上传Excel文件</button>
+
+
+</body>
+
 <script type="text/javascript">
 
-$(function () {
-    $("#button").click(function(){
-        alert(1)
-        $("#select option:nth-child(2)").attr("disabled","true")
+    $(function () {
+        $("#button").click(function () {
+            alert(1)
+            $("#select option:nth-child(2)").attr("disabled", "true")
+        })
+
+        importData();
     })
-})
+
+    //导入数据
+    var importData = function () {
+        $("#excelUploadBtn").on("click", function () {
+            $.importFile({
+                url: "salary/uploadExcel",
+                fileName: "templateFile", data: {}, successFun: function (result) {
+                    if (result.code == 1) {
+                        bootbox.alert(result.errorMsg, function () {
+                            $.closeDialog();
+                        });
+                    } else if (result.code == 2) {
+                        bootbox.alert("以下数据行出错，请修改后重新导入:</br>" + $.getMapStr(result.data), function () {
+                            $.closeDialog();
+                        });
+                    } else {
+                        bootbox.alert(result.errorMsg);
+                    }
+                }
+            });
+        });
+    };
 
 </script>
-</body>
+
+
 </html>
