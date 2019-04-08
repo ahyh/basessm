@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -75,6 +76,12 @@ public class StreamApiTest1 {
         int b = (int)a;
         System.out.println(b);
 
+    }
+
+    @Test
+    public void testMap() {
+        Map<Long, String> map = list.stream().collect(Collectors.toMap(x -> x.getId(), x -> x.getName()));
+        System.out.println();
     }
 
 
