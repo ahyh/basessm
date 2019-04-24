@@ -3,6 +3,7 @@ package utils.test;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,13 @@ public class FileUtilsTest {
         byte[] desBytes = new byte[3];
         System.arraycopy(srcBytes, 0, desBytes, 0, 3);
         System.out.println(desBytes);
+    }
+
+    @Test
+    public void testReflect() throws Exception {
+        List<String> list = Lists.newArrayList("aa","cc");
+        Type[] genericInterfaces = list.getClass().getGenericInterfaces();
+        System.out.println();
     }
 
     @Test
