@@ -1,6 +1,5 @@
 package guava.test;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -54,7 +53,6 @@ public class GuavaOrderingTest {
         map.put("distributeNo","6");
         map.put("warehouseNo","80");
         map.put("containerNo","000200098209999");
-        String s = JSON.toJSONString(map);
-        System.out.println(s);
+        System.out.println();
     }
 }

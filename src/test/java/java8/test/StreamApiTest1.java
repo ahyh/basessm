@@ -30,6 +30,11 @@ public class StreamApiTest1 {
     Person person12 = new Person(12l, 31, "dd", 10000.11, false, (byte) 1);
     List<Person> list = Lists.newArrayList(person1, person2, person3, person4, person5, person6, person7, person8, person9, person10, person11, person12);
 
+    @Test
+    public void testMap1() {
+        List<String> collect = list.stream().map(x -> x.getName()).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+    }
 
     @Test
     public void testGetIdMap() {

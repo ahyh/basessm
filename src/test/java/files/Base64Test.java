@@ -1,10 +1,12 @@
 package files;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
@@ -15,11 +17,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.UUID;
+import java.nio.charset.Charset;
+import java.util.List;
 
 
 public class Base64Test {
@@ -27,12 +29,57 @@ public class Base64Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Base64Test.class);
 
     @Test
+    public void testStringUtils(){
+        String contents = "yanhuan.。";
+        boolean flag = StringUtils.endsWithAny(contents, ".", "。");
+        System.out.println(flag);
+    }
+
+    @Test
+    public void testBase64ToFile() throws Exception {
+        File file = new File("F:\\test\\js_base64.txt");
+        String str = FileUtils.readFileToString(file);
+
+        byte[] bytes = Base64.decodeBase64(str);
+
+        File pngFile = new File("F:\\test\\js_base64.png");
+
+        FileUtils.writeByteArrayToFile(pngFile,bytes,true);
+
+    }
+
+    @Test
+    public void testList() throws Exception {
+        List<String> list = Lists.newArrayList("bb","cc");
+        String s = list.get(2);
+        System.out.println(s);
+    }
+
+    @Test
+    public void testSplitT() throws Exception {
+        String str = "aa\tbb\t\tcc\t";
+        String[] split = str.split("\t");
+        System.out.println(split.length);
+    }
+
+    @Test
+    public void testWriteTxt() throws Exception {
+        File file = new File("aaa.txt");
+        List<String> list = Lists.newArrayList("aa", "bb", "你好");
+        FileUtils.writeLines(file,list,true);
+        byte[] bytes = FileUtils.readFileToByteArray(file);
+//        file.delete();
+        Thread.sleep(1000);
+        System.out.println(bytes.length);
+    }
+
+    @Test
     public void testBase64() throws Exception {
-        byte[] bytes = Base64.encodeBase64(FileUtils.readFileToByteArray(new File("F:\\test\\000.jpg")));
-        System.out.println(new String(bytes));
-        Rectangle rectangle = new Rectangle(0, 0, 300, 900);
-        cutImage(bytes, new FileOutputStream(new File("F:\\Temp\\" + UUID.randomUUID().toString())), rectangle, "jpg");
-        System.out.println();
+        byte[] bytes = Base64.encodeBase64(FileUtils.readFileToByteArray(new File("F:\\test\\Word_orginal.png")));
+        System.out.println(new String(bytes, Charset.forName("utf-8")));
+//        Rectangle rectangle = new Rectangle(0, 0, 300, 900);
+//        cutImage(bytes, new FileOutputStream(new File("F:\\Temp\\" + UUID.randomUUID().toString())), rectangle, "jpg");
+//        System.out.println();
     }
 
     /**
@@ -76,11 +123,11 @@ public class Base64Test {
         FileInputStream fis = new FileInputStream(new File("F:\\test\\aaa.jpg"));
         byte[] bs = new byte[1];
         fis.read(bs);
-        String type = Integer.toHexString(bs[0]&0xFF);
-        if("ff".equalsIgnoreCase(type)){
+        String type = Integer.toHexString(bs[0] & 0xFF);
+        if ("ff".equalsIgnoreCase(type)) {
             extension = "JPEG";
         }
-        if("89".equalsIgnoreCase(type)) {
+        if ("89".equalsIgnoreCase(type)) {
             extension = "PNG";
         }
         System.out.println(extension);

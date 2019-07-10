@@ -18,6 +18,8 @@ public class ExcelReadTest {
         String[] fieldNameArray = {"name", "age", "sex", "company", "salary", "createTime", "createUser", "updateTime", "updateUser"};
         List<Salary> salaries = ExcelReadUtil.readExcelData(fileName, fieldNameArray, Salary.class);
         salaries.stream().forEach(System.out::println);
+
+        salaries.forEach(System.out::println);
     }
 
 }
