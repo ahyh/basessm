@@ -58,6 +58,11 @@
         <!--<property name="sqlSessionFactory" value="sqlSessionFactory"/>-->
     </bean>
 
+    <bean class="com.yanhuan.yhssm.dynamo.scan.DyMapperScannerConfigurer">
+        <property name="basePackage" value="com.yanhuan.yhssm.dynamo.dao"/>
+        <property name="annotationClass" value="com.yanhuan.yhssm.dynamo.annotations.DyMapper"/>
+    </bean>
+
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
