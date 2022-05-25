@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <javaee-api.version>7.0</javaee-api.version>
-        <spring.version>4.3.5.RELEASE</spring.version>
+        <spring.version>5.2.22.RELEASE</spring.version>
         <aspectj-version>1.8.6</aspectj-version>
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis-spring.version>1.3.1</mybatis-spring.version>
